@@ -5,7 +5,7 @@ Shader "Lighting/Toon"
         _DiffuseColour("Diffuse Colour", Color) = (1,1,1,1)
         _SpecularExponent("Specular Exponent", Float) = 80
         _k ("Coefficients (Ambient, Diffuse, Specular)", Vector) = (0.5,0.5,0.8)
-        _ToonLevels("Toon Levels", Float) = 5
+        _ToonLevels("Toon Levels", Integer) = 5
     }
     SubShader
     {
