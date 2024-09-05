@@ -52,11 +52,8 @@ Shader "Lighting/Oren-Nayar"
                 return atan2(y, x);
             }
 
-            float3 calculateIrradiance(float3 l, float3 n)
-            {
-                float cosTheta = dot(n, l);
-                float3 irradiance = _LightColor0 * max(cosTheta, 0);
-                return irradiance;
+            float3 calculateIrradiance(float3 l, float3 n) {
+                return _LightColor0.rgb * saturate(dot(n, l)); // LightColor multiplied by NdotL
             }
 
             fixed4 frag(v2f i) : SV_Target
@@ -64,37 +61,36 @@ Shader "Lighting/Oren-Nayar"
                 half3 n = normalize(i.worldNormal);
                 half3 l = normalize(_WorldSpaceLightPos0.xyz);
                 half3 v = normalize(_WorldSpaceCameraPos - i.worldPos);
-                half3 r = 2.0 * dot(n, l) * n - l;
+                half3 r = 2.0 * dot(l,n) * n - l;
 
                 float3 E0 = calculateIrradiance(l, n);
 
-                float theta_i = acos(saturate(dot(l, n)));
-                float theta_r = acos(saturate(dot(r, n)));
+                float NdotL = saturate(dot(n, l));
+                float NdotV = saturate(dot(n, v));
 
-                float phi_i = phi(l.x, l.y);
-                float phi_r = phi(r.x, r.y);
+                float theta_i = acos(dot(l, n)); // No need for saturate here
+                float theta_r = acos(dot(r, n)); // No need for saturate here
 
-                float cosPhi = cos(phi_i - phi_r);
+                float3 Lproj = normalize(l - n * NdotL); // Projection of lightDir onto the tangent plane
+                float3 Vproj = normalize(v - n * NdotV + 1); // Projection of viewDir onto the tangent plane
+                float cosPhi = dot(Lproj, Vproj);
 
                 float alpha = max(theta_i, theta_r);
                 float beta = min(theta_i, theta_r);
-
                 float sigmaSqr = _sigma * _sigma;
 
-                float3 C1 = 1 - 0.5 * (sigmaSqr / (sigmaSqr + 0.33));
-                float3 C2 = cosPhi >= 0
-                                 ? 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * sin(alpha)
-                                 : 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * (sin(alpha) - pow((2 * beta) / UNITY_PI, 3));
-                float3 C3 = 0.125 * (sigmaSqr / (sigmaSqr + 0.09)) * pow((4 * alpha * beta) / (UNITY_PI * UNITY_PI), 2);
+                float C1 = 1 - 0.5 * (sigmaSqr / (sigmaSqr + 0.33));
+                float C2 = cosPhi >= 0 ? 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * sin(alpha) : 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * (sin(alpha) - pow((2.0 * beta) / UNITY_PI, 3.0));
+                float C3 = 0.125 * (sigmaSqr / (sigmaSqr + 0.09)) * pow((4.0 * alpha * beta) / (UNITY_PI * UNITY_PI),2.0);
 
-                float3 L1 = (_rho / UNITY_PI) * E0 * cos(theta_i) * ((C1) + (C2 * cosPhi * tan(beta)) + (C3 * (1 -
-                    abs(cosPhi)) * pow(tan((alpha + beta) / 2), 2)));
-                float3 L2 = 0.17 * ((_rho * _rho) / UNITY_PI) * E0 * cos(theta_i) * (sigmaSqr / (sigmaSqr + 0.13)) * (1
-                    - cosPhi * pow((2 * beta) / UNITY_PI, 2));
+                float3 L1 = _rho * E0 * NdotL * (C1 + (C2 * cosPhi * tan(beta)) + (C3 * (1.0 - abs(cosPhi)) * tan((alpha + beta) / 2.0)));
+                float3 L2 = 0.17 * ((_rho * _rho)) * E0 * NdotL * (sigmaSqr / (sigmaSqr + 0.13)) * (1.0 - cosPhi * pow((2.0 * beta) / UNITY_PI, 2.0));
 
-                float3 L = L1 + L2;
+                float3 L = (L1+L2);
 
-                return fixed4(L, 1.0);
+                fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT * _rho.rgb;
+
+                return fixed4(L + ambient, 1.0);
             }
             ENDCG
         }

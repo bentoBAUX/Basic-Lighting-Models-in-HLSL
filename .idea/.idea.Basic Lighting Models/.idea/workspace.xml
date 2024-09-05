@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="63492014-af44-41f9-948c-96f3ed9e5388" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Basic Lighting Models/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Basic Lighting Models/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Oren-Nayar.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Oren-Nayar.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Oren-Nayar.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Oren-Nayar.shader" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon.mat" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,6 +17,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://C:/Program Files/Unity/Hub/Editor/2022.3.13f1/Editor/Data/CGIncludes/UnityShaderVariables.cginc" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
@@ -72,10 +77,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="23124">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="23124" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -96,7 +101,8 @@
       <workItem from="1724165866693" duration="43000" />
       <workItem from="1724205477200" duration="1527000" />
       <workItem from="1724456081792" duration="12000" />
-      <workItem from="1725256949571" duration="7806000" />
+      <workItem from="1725256949571" duration="8467000" />
+      <workItem from="1725504034445" duration="3834000" />
     </task>
     <servers />
   </component>
