@@ -6,9 +6,19 @@
   <component name="ChangeListManager">
     <list default="true" id="63492014-af44-41f9-948c-96f3ed9e5388" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Basic Lighting Models/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Basic Lighting Models/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Blinn-Phong.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Blinn-Phong.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Blinn-Phong.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Blinn-Phong.shader" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Flat Shading.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Flat Shading.shader" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Gouraud-Phong.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Gouraud-Phong.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Gouraud-Phong.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Gouraud-Phong.shader" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Lambert.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Lambert.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Lambert.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Lambert.shader" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Oren-Nayar.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Oren-Nayar.mat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Oren-Nayar.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Oren-Nayar.shader" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Phong.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Phong.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Phong.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Phong.shader" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon.shader" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +112,7 @@
       <workItem from="1724205477200" duration="1527000" />
       <workItem from="1724456081792" duration="12000" />
       <workItem from="1725256949571" duration="8467000" />
-      <workItem from="1725504034445" duration="3834000" />
+      <workItem from="1725504034445" duration="8202000" />
     </task>
     <servers />
   </component>

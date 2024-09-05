@@ -5,6 +5,7 @@ Shader "Lighting/Blinn-Phong"
         _DiffuseColour("Diffuse Colour", Color) = (1,1,1,1)
         _SpecularExponent("Specular Exponent", Float) = 80
         _k ("Coefficients (Ambient, Diffuse, Specular)", Vector) = (0.5,0.5,0.8)
+        _ambient ("Ambient", Range(0,1)) = 0
     }
     SubShader
     {
@@ -24,7 +25,7 @@ Shader "Lighting/Blinn-Phong"
             uniform fixed4 _LightColor0;
             uniform float3 _k;
             uniform float _SpecularExponent;
-
+            uniform bool _ambient;
             struct appdata
             {
                 float4 vertex: POSITION;
@@ -60,7 +61,7 @@ Shader "Lighting/Blinn-Phong"
                 float Id = _k.y * saturate(dot(n,l));
                 float Is = _k.z * pow(saturate(dot(h,n)), _SpecularExponent);
 
-                float3 ambient = Ia * _LightColor0.rgb;
+                float3 ambient = _ambient ? UNITY_LIGHTMODEL_AMBIENT * Ia * _LightColor0.rgb : Ia * _LightColor0.rgb;
                 float3 diffuse = Id * _LightColor0.rgb;
                 float3 specular = Is * _LightColor0.rgb;
 

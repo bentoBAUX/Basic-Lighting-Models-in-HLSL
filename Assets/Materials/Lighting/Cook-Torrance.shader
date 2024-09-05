@@ -1,10 +1,11 @@
-Shader "Lighting/Oren-Nayar"
+Shader "Lighting/Cook-Torrance"
 {
     Properties
     {
         _sigma ("Roughness", Range(0,1)) = 0.8
         _rho ("Surface Colour", Color) = (1,1,1,1)
         _ambient("Ambient", Range(0,1)) = 0
+        _Metallic ("Metallic", Range(0, 1)) = 0.5
     }
     SubShader
     {
@@ -39,6 +40,7 @@ Shader "Lighting/Oren-Nayar"
             uniform fixed4 _rho;
             uniform fixed4 _LightColor0;
             uniform bool _ambient;
+            uniform float _Metallic;
 
             v2f vert(appdata v)
             {
@@ -64,6 +66,7 @@ Shader "Lighting/Oren-Nayar"
                 half3 l = normalize(_WorldSpaceLightPos0.xyz);
                 half3 v = normalize(_WorldSpaceCameraPos - i.worldPos);
                 half3 r = 2.0 * dot(l,n) * n - l;
+                half3 h = normalize(l+v);
 
                 float3 E0 = calculateIrradiance(l, n);
 
@@ -83,12 +86,13 @@ Shader "Lighting/Oren-Nayar"
 
                 float C1 = 1 - 0.5 * (sigmaSqr / (sigmaSqr + 0.33));
                 float C2 = cosPhi >= 0 ? 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * sin(alpha) : 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * (sin(alpha) - pow((2.0 * beta) / UNITY_PI, 3.0));
-                float C3 = 0.125 * (sigmaSqr / (sigmaSqr + 0.09)) * pow((4.0 * alpha * beta) / (UNITY_PI * UNITY_PI),2.0);
+                float C3 = 0.125 * (sigmaSqr / (sigmaSqr + 0.09)) * pow((4.0 * alpha * beta) / (UNITY_PI * UNITY_PI),2);
 
                 float3 L1 = _rho * E0 * cos(theta_i) * (C1 + (C2 * cosPhi * tan(beta)) + (C3 * (1.0 - abs(cosPhi)) * tan((alpha + beta) / 2.0)));
                 float3 L2 = 0.17 * (_rho * _rho) * E0 * cos(theta_i) * (sigmaSqr / (sigmaSqr + 0.13)) * (1.0 - cosPhi * pow((2.0 * beta) / UNITY_PI, 2.0));
 
                 float3 L = (L1+L2);
+
 
                 fixed3 ambient = _ambient ? UNITY_LIGHTMODEL_AMBIENT * _rho.rgb : 0.5 * _LightColor0.rgb;
 

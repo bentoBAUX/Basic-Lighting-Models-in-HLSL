@@ -6,6 +6,7 @@ Shader "Lighting/Toon"
         _SpecularExponent("Specular Exponent", Float) = 80
         _k ("Coefficients (Ambient, Diffuse, Specular)", Vector) = (0.5,0.5,0.8)
         _ToonLevels("Toon Levels", Integer) = 5
+        _ambient ("Ambient", Range(0,1)) = 0
     }
     SubShader
     {
@@ -25,6 +26,7 @@ Shader "Lighting/Toon"
             uniform float3 _k;
             uniform float _SpecularExponent;
             uniform int _ToonLevels;
+            uniform bool _ambient;
 
             struct appdata
             {
@@ -45,7 +47,6 @@ Shader "Lighting/Toon"
                 v2f o;
                 o.pos = UnityObjectToClipPos(vx.vertex);
                 o.worldPos = mul(unity_ObjectToWorld, vx.vertex).xyz;
-
                 o.worldNormal = UnityObjectToWorldNormal(vx.normal);
                 return o;
             }
@@ -67,7 +68,7 @@ Shader "Lighting/Toon"
                 Is = floor(Is * _ToonLevels) / _ToonLevels;
 
 
-                float3 ambient = Ia * _LightColor0.rgb;
+                float3 ambient = _ambient ? UNITY_LIGHTMODEL_AMBIENT * Ia * _LightColor0.rgb : Ia * _LightColor0.rgb;
                 float3 diffuse = Id * _LightColor0.rgb;
                 float3 specular = Is * _LightColor0.rgb;
 

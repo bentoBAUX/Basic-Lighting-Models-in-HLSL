@@ -3,6 +3,7 @@ Shader "Lighting/Lambert"
   Properties {
     _DiffuseColour ("Diffuse Colour", Color) = (1, 1, 1, 1)
     kD("Diffuse Reflectivity", Range(0,1)) = 0.5
+    _ambient("Ambient", Range(0,2)) = 0
   }
   SubShader {
     Pass {
@@ -18,6 +19,7 @@ Shader "Lighting/Lambert"
       uniform fixed4 _LightColor0;
       uniform fixed4 _DiffuseColour;
       uniform float kD;
+      uniform int _ambient;
 
       // Vertex Input
       struct appdata {
@@ -54,7 +56,13 @@ Shader "Lighting/Lambert"
       //------------------------------------------------------------------------
       fixed4 frag(v2f i) : SV_Target
       {
-        return i.color;
+        switch (_ambient)
+        {
+          case 0: return i.color;
+          case 1 : return i.color + 0.5 * _LightColor0;
+          case 2 : return i.color + UNITY_LIGHTMODEL_AMBIENT * _LightColor0;
+          default: return i.color;
+        }
       }
       ENDCG
     }

@@ -59,7 +59,8 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints: []
+    m_Ints:
+    - _ambient: 0
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
@@ -79,6 +80,7 @@ Material:
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
+    - _ambient: 0
     - kD: 1
     m_Colors:
     - _Albedo: {r: 1, g: 1, b: 1, a: 1}

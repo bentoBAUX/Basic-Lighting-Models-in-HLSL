@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Gouraud-Phong
-  m_Shader: {fileID: 4800000, guid: 35de8a3bfe5e5ba4381748e2fa4e6ac4, type: 3}
+  m_Name: Cook-Torrance
+  m_Shader: {fileID: 4800000, guid: 1222b5cd4a52df4488596fcb3952ae6f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -73,18 +73,14 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
-    - _SpecularExponent: 80
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     - _ambient: 0
-    - kA: 0.3
-    - kD: 0.5
-    - kS: 0.8
+    - _sigma: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DiffuseColour: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _k: {r: 0.5, g: 0.5, b: 0.8, a: 1}
+    - _rho: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
