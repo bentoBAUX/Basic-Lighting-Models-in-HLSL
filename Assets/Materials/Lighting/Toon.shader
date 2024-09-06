@@ -7,6 +7,8 @@ Shader "Lighting/Toon"
         _k ("Coefficients (Ambient, Diffuse, Specular)", Vector) = (0.5,0.5,0.8)
         _ToonLevels("Toon Levels", Integer) = 5
         _ambient ("Ambient", Range(0,1)) = 0
+        _NoiseTex ("Noise Texture", 2D) = "white" {}
+        _NoiseScale ("Noise Scale", Float) = 1.0
     }
     SubShader
     {
@@ -27,6 +29,8 @@ Shader "Lighting/Toon"
             uniform float _SpecularExponent;
             uniform int _ToonLevels;
             uniform bool _ambient;
+            uniform sampler2D _NoiseTex;
+            uniform float _NoiseScale;
 
             struct appdata
             {
@@ -40,6 +44,7 @@ Shader "Lighting/Toon"
                 float3 worldPos: TEXCOORD0;
                 float3 worldNormal: TEXCOORD1;
                 fixed4 color: COLOR0;
+                float2 uv : TEXCOORD2;
             };
 
             v2f vert(appdata vx)
@@ -59,14 +64,13 @@ Shader "Lighting/Toon"
                 half3 h = normalize(l+v);
 
                 float Ia = _k.x;
-                Ia = floor(Ia * _ToonLevels) / _ToonLevels;
+                Ia = floor(Ia * _ToonLevels ) / _ToonLevels;
 
                 float Id = _k.y * saturate(dot(n,l));
-                Id = floor(Id * _ToonLevels) / _ToonLevels;
+                Id = floor(Id * _ToonLevels ) / _ToonLevels;
 
                 float Is = _k.z * pow(saturate(dot(h,n)), _SpecularExponent);
                 Is = floor(Is * _ToonLevels) / _ToonLevels;
-
 
                 float3 ambient = _ambient ? UNITY_LIGHTMODEL_AMBIENT * Ia * _LightColor0.rgb : Ia * _LightColor0.rgb;
                 float3 diffuse = Id * _LightColor0.rgb;

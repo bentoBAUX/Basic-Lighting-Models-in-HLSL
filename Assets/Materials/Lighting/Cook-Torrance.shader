@@ -4,8 +4,9 @@ Shader "Lighting/Cook-Torrance"
     {
         _sigma ("Roughness", Range(0,1)) = 0.8
         _rho ("Surface Colour", Color) = (1,1,1,1)
-        _ambient("Ambient", Range(0,1)) = 0
         _Metallic ("Metallic", Range(0, 1)) = 0.5
+        _ambient("Ambient", Range(0,1)) = 1
+
     }
     SubShader
     {
@@ -60,7 +61,7 @@ Shader "Lighting/Cook-Torrance"
                 return _LightColor0.rgb * saturate(dot(n, l)); // LightColor multiplied by NdotL
             }
 
-            fixed4 frag(v2f i) : SV_Target
+            float4 frag(v2f i) : SV_Target
             {
                 half3 n = normalize(i.worldNormal);
                 half3 l = normalize(_WorldSpaceLightPos0.xyz);
@@ -84,6 +85,8 @@ Shader "Lighting/Cook-Torrance"
                 float beta = min(theta_i, theta_r);
                 float sigmaSqr = _sigma * _sigma;
 
+                // Oren-Nayar: https://en.wikipedia.org/wiki/Oren–Nayar_reflectance_model
+
                 float C1 = 1 - 0.5 * (sigmaSqr / (sigmaSqr + 0.33));
                 float C2 = cosPhi >= 0 ? 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * sin(alpha) : 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * (sin(alpha) - pow((2.0 * beta) / UNITY_PI, 3.0));
                 float C3 = 0.125 * (sigmaSqr / (sigmaSqr + 0.09)) * pow((4.0 * alpha * beta) / (UNITY_PI * UNITY_PI),2);
@@ -93,10 +96,30 @@ Shader "Lighting/Cook-Torrance"
 
                 float3 L = (L1+L2);
 
+                // Cook-Torrance: https://en.wikipedia.org/wiki/Specular_highlight#Cook–Torrance_model
 
-                fixed3 ambient = _ambient ? UNITY_LIGHTMODEL_AMBIENT * _rho.rgb : 0.5 * _LightColor0.rgb;
+                float NdotH = saturate(dot(n,h));
+                float a = acos(NdotH);
+                float m = clamp(sigmaSqr,0.01,1);
+                float exponent = exp(-tan(a) * tan(a) / (m * m));
+                float D = clamp(exponent / (UNITY_PI * m * m * pow(NdotH, 4)),0.01, 1e30);
 
-                return fixed4(L + ambient, 1.0);
+                const float _RefractiveIndex = 2.5;
+
+                float F0 = ((_RefractiveIndex-1)*(_RefractiveIndex-1))/((_RefractiveIndex+1)*(_RefractiveIndex+1));
+                float F = F0 + (1-F0) * pow(1 - clamp(dot(v,n),0,1),5);
+
+                float G1 = 2*dot(h,n)*dot(n,v)/dot(v,h);
+                float G2 = 2*dot(h,n)*dot(n,l)/dot(v,h);
+                float G = min(1, min(G1,G2));
+
+                float specular = ((D * G * F) / (4 * dot(n,l)) * dot(n,v)) * _LightColor0;
+
+                float3 ambient = _ambient ? UNITY_LIGHTMODEL_AMBIENT * _rho.rgb : 0.5 * _LightColor0.rgb;
+
+
+                return float4(ambient+lerp(L,specular, _Metallic), 1.0);
+
             }
             ENDCG
         }
