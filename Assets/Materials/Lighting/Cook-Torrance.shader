@@ -117,7 +117,6 @@ Shader "Lighting/Cook-Torrance"
 
                 float3 ambient = _ambient ? UNITY_LIGHTMODEL_AMBIENT * _rho.rgb : 0.5 * _LightColor0.rgb;
 
-
                 return float4(ambient+lerp(L,specular, _Metallic), 1.0);
 
             }

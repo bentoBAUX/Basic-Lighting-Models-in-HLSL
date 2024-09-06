@@ -62,7 +62,6 @@ Shader "Lighting/Toon"
                 half3 l = normalize(_WorldSpaceLightPos0.xyz);
                 half3 v = normalize(_WorldSpaceCameraPos - i.worldPos);
                 half3 h = normalize(l+v);
-
                 float Ia = _k.x;
                 Ia = floor(Ia * _ToonLevels ) / _ToonLevels;
 

@@ -60,6 +60,8 @@ Shader "Lighting/Oren-Nayar"
 
             fixed4 frag(v2f i) : SV_Target
             {
+                // Oren-Nayar: https://en.wikipedia.org/wiki/Oren–Nayar_reflectance_model
+
                 half3 n = normalize(i.worldNormal);
                 half3 l = normalize(_WorldSpaceLightPos0.xyz);
                 half3 v = normalize(_WorldSpaceCameraPos - i.worldPos);
