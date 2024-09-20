@@ -56,6 +56,7 @@ Shader "Lighting/Gouraud-Phong"
                 float3 diffuse = Id * _LightColor0.rgb;
                 float3 specular = Is * _LightColor0.rgb;
 
+
                 o.color = fixed4((ambient + diffuse + specular) * _DiffuseColour.rgb,1.0);
 
                 return o;

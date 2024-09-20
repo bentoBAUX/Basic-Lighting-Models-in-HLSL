@@ -5,10 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63492014-af44-41f9-948c-96f3ed9e5388" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/New Material.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/New Material.mat.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Basic Lighting Models/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Basic Lighting Models/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Blinn-Phong.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Blinn-Phong.shader" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Cook-Torrance.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Cook-Torrance.shader" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Flat Shading.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Flat Shading.shader" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Gouraud-Phong.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Gouraud-Phong.shader" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Oren-Nayar.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Oren-Nayar.shader" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Phong.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Phong.shader" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon.shader" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,6 +117,8 @@
       <workItem from="1725504034445" duration="8811000" />
       <workItem from="1725588187974" duration="11449000" />
       <workItem from="1725638427041" duration="1439000" />
+      <workItem from="1725789005641" duration="6000" />
+      <workItem from="1726490002111" duration="1453000" />
     </task>
     <servers />
   </component>

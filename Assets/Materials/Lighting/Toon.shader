@@ -71,11 +71,17 @@ Shader "Lighting/Toon"
                 float Is = _k.z * pow(saturate(dot(h,n)), _SpecularExponent);
                 Is = floor(Is * _ToonLevels) / _ToonLevels;
 
+
                 float3 ambient = _ambient ? UNITY_LIGHTMODEL_AMBIENT * Ia * _LightColor0.rgb : Ia * _LightColor0.rgb;
                 float3 diffuse = Id * _LightColor0.rgb;
                 float3 specular = Is * _LightColor0.rgb;
 
-                i.color = fixed4((ambient + diffuse + specular) * _DiffuseColour.rgb,1.0);
+                float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, n).rgb;
+                skyboxColor = floor(skyboxColor * _ToonLevels) / _ToonLevels;
+
+                float3 finalColor = ambient + diffuse + specular + skyboxColor * 0.2;
+
+                i.color = fixed4(finalColor * _DiffuseColour.rgb,1.0);
 
                 return i.color;
             }

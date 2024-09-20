@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced tex2D unity_Lightmap with UNITY_SAMPLE_TEX2D
+
 Shader "Lighting/Phong"
 {
     Properties
@@ -65,7 +67,11 @@ Shader "Lighting/Phong"
                 float3 diffuse = Id * _LightColor0.rgb;
                 float3 specular = Is * _LightColor0.rgb;
 
-                i.color = fixed4((ambient + diffuse + specular) * _DiffuseColour.rgb,1.0);
+                float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, n).rgb;
+
+                float3 finalColor = ambient + diffuse + specular + skyboxColor * 0.2;
+
+                i.color = fixed4(finalColor * _DiffuseColour.rgb,1.0);
 
                 return i.color;
             }
