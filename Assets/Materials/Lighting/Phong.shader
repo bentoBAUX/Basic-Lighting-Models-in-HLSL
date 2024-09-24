@@ -67,7 +67,8 @@ Shader "Lighting/Phong"
                 float3 diffuse = Id * _LightColor0.rgb;
                 float3 specular = Is * _LightColor0.rgb;
 
-                float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, n).rgb;
+                float3 reflectionVector = reflect(-v, n);
+                float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, reflectionVector).rgb;
 
                 float3 finalColor = ambient + diffuse + specular + skyboxColor * 0.2;
 

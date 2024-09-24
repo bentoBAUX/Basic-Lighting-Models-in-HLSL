@@ -62,13 +62,13 @@ Shader "Lighting/Toon"
                 half3 l = normalize(_WorldSpaceLightPos0.xyz);
                 half3 v = normalize(_WorldSpaceCameraPos - i.worldPos);
                 half3 h = normalize(l+v);
-                float Ia = _k.x;
+                float3 Ia = _k.x;
                 Ia = floor(Ia * _ToonLevels ) / _ToonLevels;
 
-                float Id = _k.y * saturate(dot(n,l));
+                float3 Id = _k.y * saturate(dot(n,l));
                 Id = floor(Id * _ToonLevels ) / _ToonLevels;
 
-                float Is = _k.z * pow(saturate(dot(h,n)), _SpecularExponent);
+                float3 Is = _k.z * pow(saturate(dot(h,n)), _SpecularExponent);
                 Is = floor(Is * _ToonLevels) / _ToonLevels;
 
 
@@ -76,10 +76,12 @@ Shader "Lighting/Toon"
                 float3 diffuse = Id * _LightColor0.rgb;
                 float3 specular = Is * _LightColor0.rgb;
 
-                float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, n).rgb;
+                float3 reflectionVector = reflect(-v, n);
+                float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, reflectionVector).rgb;
                 skyboxColor = floor(skyboxColor * _ToonLevels) / _ToonLevels;
 
                 float3 finalColor = ambient + diffuse + specular + skyboxColor * 0.2;
+
 
                 i.color = fixed4(finalColor * _DiffuseColour.rgb,1.0);
 

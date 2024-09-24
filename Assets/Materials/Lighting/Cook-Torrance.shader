@@ -117,9 +117,11 @@ Shader "Lighting/Cook-Torrance"
 
                 float3 ambient = _ambient ? UNITY_LIGHTMODEL_AMBIENT * _rho.rgb : 0.5 * _LightColor0.rgb;
 
-                float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, n).rgb;
+                float3 reflectionVector = reflect(-v, n);
+                float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, reflectionVector).rgb;
 
-                return float4(ambient+lerp(L,specular, _Metallic) + skyboxColor * sigmaSqr, 1.0);
+                float skyboxIntensity = lerp(0.05, 1.0, sigmaSqr);
+                return float4(ambient+lerp(L,specular, _Metallic) + skyboxColor * skyboxIntensity, 1.0);
 
             }
             ENDCG
