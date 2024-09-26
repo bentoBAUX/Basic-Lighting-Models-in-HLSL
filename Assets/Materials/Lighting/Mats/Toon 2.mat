@@ -7,19 +7,20 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Lambert
-  m_Shader: {fileID: 4800000, guid: 7febefb8d3bea8c40960935f647a4bae, type: 3}
+  m_Name: Toon 2
+  m_Shader: {fileID: 4800000, guid: 5379a8663a03d434283185325407be27, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - SHADOWED_RIM
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: 
+  m_LockedProperties: _ambient
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -59,35 +60,32 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints:
-    - _ambient: 0
+    m_Ints: []
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _FresnelPower: 0.5
     - _GlossMapScale: 1
-    - _Glossiness: 0.5
+    - _Glossiness: 34.82
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Roughness: 0.5
-    - _Shininess: 20
+    - _RimThreshold: 0.1
     - _SmoothnessTextureChannel: 0
+    - _SpecularExponent: 80
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     - _ambient: 0
-    - kD: 1
     m_Colors:
-    - _Albedo: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DiffuseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _DiffuseColour: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.8490566, g: 0.5238519, b: 0.5238519, a: 1}
+    - _DiffuseColour: {r: 1, g: 0.3754716, b: 0.47045854, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
-    - lightColour: {r: 1, g: 1, b: 1, a: 1}
+    - _FresnelColour: {r: 1, g: 1, b: 1, a: 1}
+    - _k: {r: 0.5, g: 0.5, b: 0.8, a: 1}
   m_BuildTextureStacks: []

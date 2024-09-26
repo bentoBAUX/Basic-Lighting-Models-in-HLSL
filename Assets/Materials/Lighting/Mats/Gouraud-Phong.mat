@@ -84,7 +84,7 @@ Material:
     - kS: 0.8
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DiffuseColour: {r: 1, g: 1, b: 1, a: 1}
+    - _DiffuseColour: {r: 0.5803922, g: 1, b: 0.95686275, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _k: {r: 0.5, g: 0.5, b: 0.8, a: 1}
   m_BuildTextureStacks: []

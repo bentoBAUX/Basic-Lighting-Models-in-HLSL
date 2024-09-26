@@ -5,27 +5,26 @@ Shader "Lighting/Flat Shading"
         _DiffuseColour("Diffuse Colour", Color) = (1,1,1,1)
         _SpecularExponent("Specular Exponent", Float) = 80
         _k ("Coefficients (Ambient, Diffuse, Specular)", Vector) = (0.5,0.5,0.8)
-        _ambient("Ambient", Range(0,1)) = 0
-
     }
     SubShader
     {
 
         Pass
         {
-            Tags { "LightMode"="ForwardBase" }
+            Tags
+            {
+                "LightMode"="ForwardBase"
+            }
 
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
             #include "UnityCG.cginc"
 
-
             uniform fixed4 _DiffuseColour;
             uniform fixed4 _LightColor0;
             uniform float3 _k;
             uniform float _SpecularExponent;
-            uniform bool _ambient;
 
             struct appdata
             {
@@ -56,26 +55,24 @@ Shader "Lighting/Flat Shading"
                 half3 n = normalize(worldNormal);
                 half3 l = normalize(_WorldSpaceLightPos0.xyz);
                 half3 v = normalize(_WorldSpaceCameraPos - i.worldPos);
-                half3 h = normalize(l+v);
+                half3 h = normalize(l + v);
 
                 float Ia = _k.x;
-                float Id = _k.y * saturate(dot(n,l));
-                float Is = _k.z * pow(saturate(dot(h,n)), _SpecularExponent);
+                float Id = _k.y * saturate(dot(n, l));
+                float Is = _k.z * pow(saturate(dot(h, n)), _SpecularExponent);
 
-                float3 ambient = _ambient ? UNITY_LIGHTMODEL_AMBIENT * Ia * _LightColor0.rgb : Ia * _LightColor0.rgb;
+                float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, float3(0,1,0)).rgb;
+
+                float3 ambient = Ia * (UNITY_LIGHTMODEL_AMBIENT + _LightColor0 + skyboxColor);
                 float3 diffuse = Id * _LightColor0.rgb;
                 float3 specular = Is * _LightColor0.rgb;
 
-                float3 reflectionVector = reflect(-v, n);
-                float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, reflectionVector).rgb;
-
                 float3 finalColor = ambient + diffuse + specular + skyboxColor * 0.2;
 
-                i.color = fixed4(finalColor * _DiffuseColour.rgb,1.0);
+                i.color = fixed4(finalColor * _DiffuseColour.rgb, 1.0);
 
                 return i.color;
             }
-
             ENDCG
 
         }

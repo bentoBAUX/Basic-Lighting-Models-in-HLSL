@@ -14,7 +14,10 @@ Shader "Lighting/Phong"
 
         Pass
         {
-            Tags { "LightMode"="ForwardBase" }
+            Tags
+            {
+                "LightMode"="ForwardBase"
+            }
 
             CGPROGRAM
             #pragma vertex vert
@@ -56,27 +59,26 @@ Shader "Lighting/Phong"
             {
                 half3 n = normalize(i.worldNormal);
                 half3 l = normalize(_WorldSpaceLightPos0.xyz);
-                half3 r = 2.0 * dot(n,l) * n - l;
+                half3 r = 2.0 * dot(n, l) * n - l;
                 half3 v = normalize(_WorldSpaceCameraPos - i.worldPos);
 
                 float Ia = _k.x;
-                float Id = _k.y * saturate(dot(n,l));
-                float Is = _k.z * pow(saturate(dot(r,v)), _SpecularExponent);
+                float Id = _k.y * saturate(dot(n, l));
+                float Is = _k.z * pow(saturate(dot(r, v)), _SpecularExponent);
 
-                float3 ambient = _ambient ? UNITY_LIGHTMODEL_AMBIENT * Ia * _LightColor0.rgb : Ia * _LightColor0.rgb;
+                float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, float3(0,1,0)).rgb;
+
+                float3 ambient = Ia * (UNITY_LIGHTMODEL_AMBIENT + _LightColor0.rgb + skyboxColor);
                 float3 diffuse = Id * _LightColor0.rgb;
                 float3 specular = Is * _LightColor0.rgb;
 
-                float3 reflectionVector = reflect(-v, n);
-                float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, reflectionVector).rgb;
 
                 float3 finalColor = ambient + diffuse + specular + skyboxColor * 0.2;
 
-                i.color = fixed4(finalColor * _DiffuseColour.rgb,1.0);
+                i.color = fixed4(finalColor * _DiffuseColour.rgb, 1.0);
 
                 return i.color;
             }
-
             ENDCG
 
         }

@@ -4,7 +4,6 @@ Shader "Lighting/Oren-Nayar"
     {
         _sigma ("Roughness", Range(0,1)) = 0.8
         _rho ("Surface Colour", Color) = (1,1,1,1)
-        _ambient("Ambient", Range(0,1)) = 0
     }
     SubShader
     {
@@ -38,7 +37,6 @@ Shader "Lighting/Oren-Nayar"
             uniform float _sigma;
             uniform fixed4 _rho;
             uniform fixed4 _LightColor0;
-            uniform bool _ambient;
 
             v2f vert(appdata v)
             {
@@ -92,14 +90,10 @@ Shader "Lighting/Oren-Nayar"
 
                 float3 L = (L1+L2);
 
-                fixed3 ambient = _ambient ? UNITY_LIGHTMODEL_AMBIENT * _rho.rgb : 0.5 * _LightColor0.rgb;
+                float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, float3(0,1,0)).rgb;
+                fixed3 ambient = 0.5 * (UNITY_LIGHTMODEL_AMBIENT + _LightColor0 + skyboxColor);
 
-                float3 reflectionVector = reflect(-v, n);
-                float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, reflectionVector).rgb;
-
-                float skyboxIntensity = lerp(0.05, 1.0, sigmaSqr);
-
-                return fixed4(L + ambient + skyboxColor * skyboxIntensity, 1.0);
+                return fixed4(L + ambient, 1.0);
             }
             ENDCG
         }

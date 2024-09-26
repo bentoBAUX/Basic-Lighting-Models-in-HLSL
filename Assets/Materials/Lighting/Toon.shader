@@ -1,11 +1,10 @@
-Shader "Lighting/Toon1"
+Shader "Lighting/Toon"
 {
     Properties
     {
         _DiffuseColour("Diffuse Colour", Color) = (1,1,1,1)
         _SpecularExponent("Specular Exponent", Float) = 80
         _k ("Coefficients (Ambient, Diffuse, Specular)", Vector) = (0.5,0.5,0.8)
-        _ambient ("Ambient", Range(0,1)) = 0
         _FresnelPower("Fresnel Power", Float) = 0.5
         _RimThreshold("Rim Threshold", Range(0, 1)) = 0.1
     }
@@ -65,6 +64,7 @@ Shader "Lighting/Toon1"
 
             fixed4 frag(v2f i) : SV_Target
             {
+
 
                 half3 n = normalize(i.worldNormal);
                 half3 l = normalize(_WorldSpaceLightPos0.xyz);

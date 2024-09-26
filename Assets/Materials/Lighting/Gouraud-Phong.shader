@@ -5,7 +5,6 @@ Shader "Lighting/Gouraud-Phong"
         _DiffuseColour("Diffuse Colour", Color) = (1,1,1,1)
         _SpecularExponent("Specular Exponent", Float) = 80
         _k ("Coefficients (Ambient, Diffuse, Specular)", Vector) = (0,0.5,0.8)
-        _ambient("Ambient", Range(0,1)) = 0
     }
     SubShader
     {
@@ -23,7 +22,6 @@ Shader "Lighting/Gouraud-Phong"
             uniform fixed4 _LightColor0;
             uniform float3 _k;
             uniform float _SpecularExponent;
-            uniform bool _ambient;
 
             struct appdata
             {
@@ -52,10 +50,10 @@ Shader "Lighting/Gouraud-Phong"
                 float Id = _k.y * saturate(dot(n,l));
                 float Is = _k.z * pow(saturate(dot(r,v)), _SpecularExponent);
 
-                float3 ambient = _ambient ? UNITY_LIGHTMODEL_AMBIENT * Ia * _LightColor0.rgb : Ia * _LightColor0.rgb;
+
+                float3 ambient = Ia;
                 float3 diffuse = Id * _LightColor0.rgb;
                 float3 specular = Is * _LightColor0.rgb;
-
 
                 o.color = fixed4((ambient + diffuse + specular) * _DiffuseColour.rgb,1.0);
 
@@ -64,7 +62,8 @@ Shader "Lighting/Gouraud-Phong"
 
             fixed4 frag(v2f i) : SV_Target
             {
-                return i.color;
+                float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, float3(0,1,0)).rgb;
+                return fixed4(i.color.rgb + skyboxColor, 1.0);
             }
 
             ENDCG
