@@ -5,13 +5,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63492014-af44-41f9-948c-96f3ed9e5388" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon 1.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon 1.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon 2.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon 2.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Plane.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Plane.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Proper sky.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Proper sky.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Models.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Models/Cone.fbx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Models/Cone.fbx.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Models/Cylinder.fbx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Models/Cylinder.fbx.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Models/Doughnut.fbx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Models/Doughnut.fbx.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Models/Monkey.fbx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Models/Monkey.fbx.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scenes/Showcase.unity" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scenes/Showcase.unity.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scenes/Toon.unity" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scenes/Toon.unity.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Basic Lighting Models/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Basic Lighting Models/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Blinn-Phong.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Blinn-Phong.shader" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Cook-Torrance.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Cook-Torrance.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Flat Shading.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Flat Shading.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Oren-Nayar.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Oren-Nayar.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Phong.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Phong.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon.shader" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon 1.shader" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon.shader.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon 1.shader.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/New Material.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/New Material.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +69,7 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -115,7 +137,10 @@
       <workItem from="1725638427041" duration="1439000" />
       <workItem from="1725789005641" duration="6000" />
       <workItem from="1726490002111" duration="1453000" />
-      <workItem from="1727184017249" duration="1634000" />
+      <workItem from="1727184017249" duration="2168000" />
+      <workItem from="1727274269397" duration="2857000" />
+      <workItem from="1727332450053" duration="5303000" />
+      <workItem from="1727362414074" duration="3558000" />
     </task>
     <servers />
   </component>

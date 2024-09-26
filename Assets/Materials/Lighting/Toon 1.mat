@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Toon
+  m_Name: Toon 1
   m_Shader: {fileID: 4800000, guid: 5379a8663a03d434283185325407be27, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -83,7 +83,7 @@ Material:
     - _ambient: 0
     m_Colors:
     - _Color: {r: 0.8490566, g: 0.5238519, b: 0.5238519, a: 1}
-    - _DiffuseColour: {r: 1, g: 0.9382343, b: 0.5803922, a: 1}
+    - _DiffuseColour: {r: 0.5803922, g: 1, b: 0.9557521, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FresnelColour: {r: 1, g: 1, b: 1, a: 1}
     - _k: {r: 0.5, g: 0.5, b: 0.8, a: 1}

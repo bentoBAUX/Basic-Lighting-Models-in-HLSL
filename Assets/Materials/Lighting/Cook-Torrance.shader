@@ -122,6 +122,7 @@ Shader "Lighting/Cook-Torrance"
 
                 float skyboxIntensity = lerp(0.05, 1.0, sigmaSqr);
                 return float4(ambient+lerp(L,specular, _Metallic) + skyboxColor * skyboxIntensity, 1.0);
+                return float4(ambient+lerp(L,specular, _Metallic), 1.0);
 
             }
             ENDCG
