@@ -7,13 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Toon 3
-  m_Shader: {fileID: 4800000, guid: 5379a8663a03d434283185325407be27, type: 3}
+  m_Name: HarryAlisavakis
+  m_Shader: {fileID: 4800000, guid: db8aaf1cf79c066468c7e9f6d14708b0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords:
+  m_ValidKeywords:
   - SHADOWED_RIM
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -46,17 +46,25 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 100, y: 100}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 2800000, guid: c63e95bb6801c50468b8bf6859bdae73, type: 3}
+        m_Scale: {x: 5, y: 5}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecularMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -68,13 +76,17 @@ Material:
     - _DstBlend: 0
     - _FresnelPower: 0.5
     - _GlossMapScale: 1
-    - _Glossiness: 34.82
+    - _Glossiness: 0.165
     - _GlossyReflections: 1
+    - _LightCutoff: 0.221
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _RimSize: 0.294
     - _RimThreshold: 0.1
+    - _ShadowBands: 1
+    - _ShadowedRim: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularExponent: 80
     - _SpecularHighlights: 1
@@ -83,9 +95,12 @@ Material:
     - _ZWrite: 1
     - _ambient: 0
     m_Colors:
-    - _Color: {r: 0.8490566, g: 0.5238519, b: 0.5238519, a: 1}
+    - _Color: {r: 0.8352941, g: 0.4392157, b: 0.4392157, a: 1}
     - _DiffuseColour: {r: 0.2981131, g: 0.2981131, b: 0.2981131, a: 1}
+    - _Emission: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FresnelColour: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _k: {r: 0.5, g: 0.5, b: 0.8, a: 1}
   m_BuildTextureStacks: []
