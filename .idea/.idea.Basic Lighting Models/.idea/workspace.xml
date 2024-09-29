@@ -5,24 +5,78 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63492014-af44-41f9-948c-96f3ed9e5388" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/HarryAlisavakis.shader" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/HarryAlisavakis.shader.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/HarryAlisa.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/HarryAlisa.mat.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/LightManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/LightManager.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Textures/NormalMap.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Textures/NormalMap.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Textures/Weird Normal.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Textures/Weird Normal.jpeg.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Blinn-Phong.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Blinn-Phong.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Cook-Torrance.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Cook-Torrance.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Default.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Default.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Flat Shading.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Gouraud-Phong.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Gouraud-Phong.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/HarryAlisavakis.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/HarryAlisavakis.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Lambert.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Lambert.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Oren-Nayar.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Oren-Nayar.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Phong.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon 1.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon 1.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon 2.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon 2.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/OutlineManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/OutlineManager.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Shaders.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Basic Lighting Models/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Basic Lighting Models/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Toon 2.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Toon 2.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Toon 3.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Toon 3.mat.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Toon.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Toon.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon.shader" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Blinn-Phong.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Blinn-Phong.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Cook-Torrance.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Cook-Torrance.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Flat Shading.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Flat Shading.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Gouraud-Phong.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Gouraud-Phong.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/HarryAlisavakis.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/HarryAlisavakis.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Lambert.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Lambert.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Blinn-Phong.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Blinn-Phong.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Cook-Torrance.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Cook-Torrance.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Default.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Default.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Flat Shading.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Flat Shading.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Gouraud-Phong.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Gouraud-Phong.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/HarryAlisavakis.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/HarryAlisavakis.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Lambert.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Lambert.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Oren-Nayar.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Oren-Nayar.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Phong.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Phong.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Toon 1.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Toon 1.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Toon 2.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Toon 2.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Toon.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Mats/Toon.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Oren-Nayar.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Oren-Nayar.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Phong.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Phong.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Lighting/Toon.shader.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Toon.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Toon.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LightManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LightManager.cs.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +185,10 @@
       <workItem from="1727332450053" duration="5303000" />
       <workItem from="1727362414074" duration="5877000" />
       <workItem from="1727405998374" duration="7098000" />
-      <workItem from="1727423062635" duration="2925000" />
+      <workItem from="1727423062635" duration="8266000" />
+      <workItem from="1727451021350" duration="848000" />
+      <workItem from="1727532986207" duration="2219000" />
+      <workItem from="1727585890307" duration="314000" />
     </task>
     <servers />
   </component>
