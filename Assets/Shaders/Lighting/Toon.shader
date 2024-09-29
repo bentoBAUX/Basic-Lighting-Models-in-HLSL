@@ -16,6 +16,9 @@ Shader "Lighting/Toon"
         [Header(Blinn Phong)][Space(10)]
         _k ("Coefficients (Ambient, Diffuse, Specular)", Vector) = (0.5,0.5,0.8)
         _SpecularExponent("Specular Exponent", Float) = 80
+
+        [Header(Rim)][Space(10)]
+        [Toggle(RIM)] _Rim("Rim", float) = 1
         _FresnelPower("Fresnel Power", Range(0.01, 1)) = 0.5
         _RimThreshold("Rim Threshold", Range(0, 1)) = 0.1
     }
@@ -33,6 +36,9 @@ Shader "Lighting/Toon"
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile_fwdbase
+            #pragma multi_compile_fog
+            #pragma shader_feature RIM
+
 
             #include "UnityCG.cginc"
             #include "AutoLight.cginc"
@@ -69,6 +75,7 @@ Shader "Lighting/Toon"
                 float3 worldPos: TEXCOORD2;
                 float3x3 TBN : TEXCOORD3;
                 SHADOW_COORDS(6)
+                UNITY_FOG_COORDS(7)
             };
 
             v2f vert(appdata vx)
@@ -88,6 +95,8 @@ Shader "Lighting/Toon"
                 o.TBN = float3x3(worldTangent, worldBitangent, worldNormal);
 
                 TRANSFER_SHADOW(o);
+                UNITY_TRANSFER_FOG(o, o.pos);
+
                 return o;
             }
 
@@ -116,23 +125,27 @@ Shader "Lighting/Toon"
                 float Is = _k.z * pow(saturate(dot(h, n)), _SpecularExponent * _SpecularExponent);
                 Is = smoothstep(0.005, 0.01, Is);
 
-                // Fresnel Rim-Lighting
-                fixed rimDot = 1 - dot(v, n);
-                float rimIntensity = rimDot * pow(NdotL, _RimThreshold);
-                rimIntensity = smoothstep(_FresnelPower - 0.01, _FresnelPower + 0.01, rimIntensity);
-
-                half4 fresnel = rimIntensity * _LightColor0;
-
                 half3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, float3(0,1,0)).rgb;
 
                 half3 ambient = Ia * (UNITY_LIGHTMODEL_AMBIENT + _LightColor0.rgb + skyboxColor);
                 half3 diffuse = Id * _LightColor0.rgb;
                 half3 specular = Is * _LightColor0.rgb;
 
+                #ifdef RIM
+                // Fresnel Rim-Lighting
+                fixed rimDot = 1 - dot(v, n);
+                float rimIntensity = rimDot * pow(NdotL, _RimThreshold);
+                rimIntensity = smoothstep(_FresnelPower - 0.01, _FresnelPower + 0.01, rimIntensity);
+                half4 fresnel = rimIntensity * _LightColor0;
                 half3 lighting = diffuse + specular + fresnel;
                 half3 finalColor = ambient + lighting * shadow;
-
-                return half4(finalColor * c.rgb, 1.0);
+                #else
+                half3 lighting = diffuse + specular;
+                half3 finalColor = ambient + lighting * shadow;
+                #endif
+                finalColor *= c.rgb;
+                UNITY_APPLY_FOG(i.fogCoord, finalColor);
+                return half4(finalColor, 1.0);
             }
             ENDCG
 

@@ -87,6 +87,7 @@ Shader "Lighting/HarryAlisavakis"
             c.rgb = col * shadow + rim;
             #endif
             c.a = s.Alpha;
+
             return c;
         }
 

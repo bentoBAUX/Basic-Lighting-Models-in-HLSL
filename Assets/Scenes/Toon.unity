@@ -15,9 +15,9 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_FogColor: {r: 1, g: 1, b: 1, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.13
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &349452169
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -184,7 +184,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7e2d8de89d8e6b1409dc285673b2e6ef, type: 2}
+  - {fileID: 2100000, guid: 17f6a1c15185a9c4488fadc6fafe9a2a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -331,9 +331,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 603048965}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00894972beb00f94f9c1d176f52bc96a, type: 3}
+  m_Script: {fileID: 11500000, guid: cc265e1adc049d745a4978cb141e3092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shader: {fileID: 4800000, guid: 9e58b104e836f0f42a4dc65e1f23db89, type: 3}
+  OutlineColour: {r: 0, g: 0, b: 0, a: 0}
+  EdgeMultiplier: 2
+  EdgeThickness: 0.916
 --- !u!1001 &694469073
 PrefabInstance:
   m_ObjectHideFlags: 0

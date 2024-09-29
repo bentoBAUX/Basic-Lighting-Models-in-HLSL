@@ -41,6 +41,7 @@
             float4 _MainTex_TexelSize;
             uniform fixed4 _OutlineColour;
             uniform float _EdgeMultiplier;
+            uniform float _EdgeThickness;
 
             float4 RobertsCrossFilter(sampler2D tex, float2 texCoord, float2 texelSize)
             {
@@ -51,6 +52,8 @@
                 // Filter2
                 //  0, 1,
                 // -1, 0
+
+                texelSize *= _EdgeThickness;
 
                 float2 uv0 = texCoord;
                 float2 uv1 = texCoord + texelSize;
