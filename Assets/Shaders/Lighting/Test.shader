@@ -1,110 +1,174 @@
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 Shader "Lighting/Test"
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
+        _Color ("Main Color", Color) = (1,1,1,1)
+        _MainTex ("Base (RGB) Alpha (A)", 2D) = "white" {}
     }
     SubShader
     {
-        // No culling or depth
-        Cull Off ZWrite Off ZTest Always
 
+        Tags {"Queue" = "Geometry" "RenderType" = "Opaque"}
         Pass
         {
+            Tags {"LightMode" = "ForwardBase"}                      // This Pass tag is important or Unity may not give it the correct light information.
+           		CGPROGRAM
+                #pragma vertex vert
+                #pragma fragment frag
+                #pragma multi_compile_fwdbase                       // This line tells Unity to compile this pass for forward base.
+
+                #include "UnityCG.cginc"
+                #include "AutoLight.cginc"
+
+               	struct vertex_input
+               	{
+               		float4 vertex : POSITION;
+               		float3 normal : NORMAL;
+               		float2 texcoord : TEXCOORD0;
+               	};
+
+                struct vertex_output
+                {
+                    float4  pos         : SV_POSITION;
+                    float2  uv          : TEXCOORD0;
+                    float3  lightDir    : TEXCOORD1;
+                    float3  normal		: TEXCOORD2;
+                    LIGHTING_COORDS(3,4)                            // Macro to send shadow & attenuation to the vertex shader.
+                	float3  vertexLighting : TEXCOORD5;
+                };
+
+                sampler2D _MainTex;
+                float4 _MainTex_ST;
+                fixed4 _Color;
+                fixed4 _LightColor0;
+
+                vertex_output vert (vertex_input v)
+                {
+                    vertex_output o;
+                    o.pos = UnityObjectToClipPos( v.vertex);
+                    o.uv = v.texcoord.xy;
+
+					o.lightDir = ObjSpaceLightDir(v.vertex);
+
+					o.normal = v.normal;
+
+                    TRANSFER_VERTEX_TO_FRAGMENT(o);                 // Macro to send shadow & attenuation to the fragment shader.
+
+                    o.vertexLighting = float3(0.0, 0.0, 0.0);
+
+		            #ifdef VERTEXLIGHT_ON
+
+  					float3 worldN = mul((float3x3)unity_ObjectToWorld, SCALED_NORMAL);
+		          	float4 worldPos = mul(unity_ObjectToWorld, v.vertex);
+
+		            for (int index = 0; index < 4; index++)
+		            {
+		               float4 lightPosition = float4(unity_4LightPosX0[index],
+		                  unity_4LightPosY0[index],
+		                  unity_4LightPosZ0[index], 1.0);
+
+		               float3 vertexToLightSource = float3(lightPosition - worldPos);
+
+		               float3 lightDirection = normalize(vertexToLightSource);
+
+		               float squaredDistance = dot(vertexToLightSource, vertexToLightSource);
+
+		               float attenuation = 1.0 / (1.0  + unity_4LightAtten0[index] * squaredDistance);
+
+		               float3 diffuseReflection = attenuation * float3(unity_LightColor[index])
+		                  * float3(_Color) * max(0.0, dot(worldN, lightDirection));
+
+		               o.vertexLighting = o.vertexLighting + diffuseReflection * 2;
+		            }
+
+
+		            #endif
+
+                    return o;
+                }
+
+                fixed4 frag(vertex_output i) : COLOR
+                {
+                    i.lightDir = normalize(i.lightDir);
+                    fixed atten = LIGHT_ATTENUATION(i); // Macro to get you the combined shadow & attenuation value.
+
+                    fixed4 tex = tex2D(_MainTex, i.uv);
+                    tex *= _Color + fixed4(i.vertexLighting, 1.0);
+
+                    fixed diff = saturate(dot(i.normal, i.lightDir));
+
+                    fixed4 c;
+                    c.rgb = (UNITY_LIGHTMODEL_AMBIENT.rgb * 2 * tex.rgb);         // Ambient term. Only do this in Forward Base. It only needs calculating once.
+                    c.rgb += (tex.rgb * _LightColor0.rgb * diff) * (atten * 2); // Diffuse and specular.
+                    c.a = tex.a + _LightColor0.a * atten;
+                    return c;
+                }
+            ENDCG
+        }
+
+        Pass {
+            Tags {"LightMode" = "ForwardAdd"}                       // Again, this pass tag is important otherwise Unity may not give the correct light information.
+            Blend One One                                           // Additively blend this pass with the previous one(s). This pass gets run once per pixel light.
             CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
+                #pragma vertex vert
+                #pragma fragment frag
+                #pragma multi_compile_fwdadd                        // This line tells Unity to compile this pass for forward add, giving attenuation information for the light.
 
-            #include "UnityCG.cginc"
+                #include "UnityCG.cginc"
+                #include "AutoLight.cginc"
 
-            struct appdata
-            {
-                float4 vertex : POSITION;
-                float3 normals: NORMAL;
-                float2 uv : TEXCOORD0;
-            };
+                struct v2f
+                {
+                    float4  pos         : SV_POSITION;
+                    float2  uv          : TEXCOORD0;
+                    float3  lightDir    : TEXCOORD2;
+                    float3 normal		: TEXCOORD1;
+                    LIGHTING_COORDS(3,4)                            // Macro to send shadow & attenuation to the vertex shader.
+                };
 
-            struct v2f
-            {
-                float2 uv : TEXCOORD0;
-                float3 normals: NORMAL;
-                float4 vertex : SV_POSITION;
-            };
+                v2f vert (appdata_tan v)
+                {
+                    v2f o;
 
-            v2f vert (appdata v)
-            {
-                v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
-                o.normals = normalize(o.vertex);
-                o.uv = v.uv;
-                return o;
-            }
+                    o.pos = UnityObjectToClipPos( v.vertex);
+                    o.uv = v.texcoord.xy;
 
-            sampler2D _MainTex;
-            sampler2D _CameraDepthTexture;
-            sampler2D _CameraGBufferTexture2;
+					o.lightDir = ObjSpaceLightDir(v.vertex);
 
-            float _OutlineThickness;
-            float _OutlineDepthMultiplier;
-            float _OutlineDepthBias;
-            float _OutlineNormalMultiplier;
-            float _OutlineNormalBias;
+					o.normal =  v.normal;
+                    TRANSFER_VERTEX_TO_FRAGMENT(o);                 // Macro to send shadow & attenuation to the fragment shader.
+                    return o;
+                }
 
-            float4 _OutlineColor;
+                sampler2D _MainTex;
+                fixed4 _Color;
 
-            float4 SobelDepth (float2 uv, float3 offset)
-            {
-                float4 centerPixel = tex2D(_CameraGBufferTexture2, uv);
-                float4 leftPixel = tex2D(_CameraGBufferTexture2, uv - offset.xz);
-                float4 rightPixel = tex2D(_CameraGBufferTexture2, uv + offset.xz);
-                float4 upPixel = tex2D(_CameraGBufferTexture2, uv + offset.xy);
-                float4 downPixel = tex2D(_CameraGBufferTexture2, uv - offset.xy);
+                fixed4 _LightColor0; // Colour of the light used in this pass.
 
-                return abs(leftPixel - centerPixel)  +
-                       abs(rightPixel - centerPixel) +
-                       abs(upPixel - centerPixel)    +
-                       abs(downPixel - centerPixel);
-            }
+                fixed4 frag(v2f i) : COLOR
+                {
+                    i.lightDir = normalize(i.lightDir);
 
-            float SobelSampleDepth (float2 uv, float3 offset)
-            {
-                float centerPixel = LinearEyeDepth(tex2D(_CameraDepthTexture, uv).r);
-                float leftPixel = LinearEyeDepth(tex2D(_CameraDepthTexture, uv - offset.xz).r);
-                float rightPixel = LinearEyeDepth(tex2D(_CameraDepthTexture, uv + offset.xz).r);
-                float upPixel = LinearEyeDepth(tex2D(_CameraDepthTexture, uv + offset.xy).r);
-                float downPixel = LinearEyeDepth(tex2D(_CameraDepthTexture, uv - offset.xy).r);
+                    fixed atten = LIGHT_ATTENUATION(i); // Macro to get you the combined shadow & attenuation value.
 
-                return abs(leftPixel - centerPixel)  +
-                       abs(rightPixel - centerPixel) +
-                       abs(upPixel - centerPixel)    +
-                       abs(downPixel - centerPixel);
-            }
+                    fixed4 tex = tex2D(_MainTex, i.uv);
 
-            float4 frag (v2f i) : SV_Target
-            {
-                float4 sceneColor = tex2D(_MainTex, i.uv);
-                float4 depth = tex2D(_CameraDepthTexture, i.uv);
-                float4 gBuffer = tex2D(_CameraGBufferTexture2, i.uv);
+                    tex *= _Color;
 
-                float3 offset = float3((1.0 / _ScreenParams.x), (1.0 / _ScreenParams.y), 0.0) * _OutlineThickness;
+					fixed3 normal = i.normal;
+                    fixed diff = saturate(dot(normal, i.lightDir));
 
-                float sobelDepth = SobelSampleDepth(i.uv, offset);
-                sobelDepth = pow(saturate(sobelDepth) * _OutlineDepthMultiplier, _OutlineDepthBias);
 
-                float3 sobelNormalVec = SobelDepth(i.uv, offset).rgb;
-                float sobelNormal = sobelNormalVec.x + sobelNormalVec.y + sobelNormalVec.z;
-                sobelNormal = pow(sobelNormal * _OutlineNormalMultiplier, _OutlineNormalBias);
-
-                float sobelOutline = saturate(max(sobelDepth, sobelNormal));
-
-                // Modulate the outline color based on it's transparency
-                float3 outlineColor = lerp(sceneColor, _OutlineColor.rgb, _OutlineColor.a);
-                // Calculate the final scene color
-                float3 color = lerp(sceneColor, outlineColor, sobelOutline);
-
-                return float4(color.xyz, 1.0);
-            }
+                    fixed4 c;
+                    c.rgb = (tex.rgb * _LightColor0.rgb * diff) * (atten * 2); // Diffuse and specular.
+                    c.a = tex.a;
+                    return c;
+                }
             ENDCG
         }
     }
+    FallBack "VertexLit"    // Use VertexLit's shadow caster/receiver passes.
 }
