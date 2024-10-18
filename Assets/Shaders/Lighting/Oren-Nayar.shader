@@ -3,7 +3,7 @@ Shader "Lighting/Oren-Nayar"
     Properties
     {
         _sigma ("Roughness", Range(0,1)) = 0.8
-        _rho ("Surface Colour", Color) = (1,1,1,1)
+        _DiffuseColour ("Surface Colour", Color) = (1,1,1,1)
     }
     SubShader
     {
@@ -35,7 +35,7 @@ Shader "Lighting/Oren-Nayar"
             };
 
             uniform float _sigma;
-            uniform fixed4 _rho;
+            uniform fixed4 _DiffuseColour;
             uniform fixed4 _LightColor0;
 
             v2f vert(appdata v)
@@ -85,8 +85,8 @@ Shader "Lighting/Oren-Nayar"
                 float C2 = cosPhi >= 0 ? 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * sin(alpha) : 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * (sin(alpha) - pow((2.0 * beta) / UNITY_PI, 3.0));
                 float C3 = 0.125 * (sigmaSqr / (sigmaSqr + 0.09)) * pow((4.0 * alpha * beta) / (UNITY_PI * UNITY_PI),2.0);
 
-                float3 L1 = _rho * E0 * cos(theta_i) * (C1 + (C2 * cosPhi * tan(beta)) + (C3 * (1.0 - abs(cosPhi)) * tan((alpha + beta) / 2.0)));
-                float3 L2 = 0.17 * (_rho * _rho) * E0 * cos(theta_i) * (sigmaSqr / (sigmaSqr + 0.13)) * (1.0 - cosPhi * pow((2.0 * beta) / UNITY_PI, 2.0));
+                float3 L1 = _DiffuseColour * E0 * cos(theta_i) * (C1 + (C2 * cosPhi * tan(beta)) + (C3 * (1.0 - abs(cosPhi)) * tan((alpha + beta) / 2.0)));
+                float3 L2 = 0.17 * (_DiffuseColour * _DiffuseColour) * E0 * cos(theta_i) * (sigmaSqr / (sigmaSqr + 0.13)) * (1.0 - cosPhi * pow((2.0 * beta) / UNITY_PI, 2.0));
 
                 float3 L = (L1+L2);
 
