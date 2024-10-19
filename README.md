@@ -1,3 +1,4 @@
+# *README IS WORK-IN-PROGRESS*
 # Lighting Models in Unity using HLSL
 
 This repository contains several basic lighting models implemented in Unity using HLSL (High-Level Shading Language).
