@@ -46,9 +46,7 @@ I_{\text{diffuse}} = I_{\text{light}} \cdot \max(0, \mathbf{N} \cdot \mathbf{L})
 \]
 Where:
 
-- \( \mathbf{N} \) is the surface normal
-- \( \mathbf{L} \) is the direction of the light source
-- \( I_{\text{light}} \) is the intensity of the light
+$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
 
 #### Code Snippet
 
@@ -67,14 +65,7 @@ is scattered equally in all directions. This is suitable for matte surfaces.
 
 #### Mathematical Formula
 
-\[
-I_{\text{diffuse}} = I_{\text{light}} \cdot \max(0, \mathbf{N} \cdot \mathbf{L})
-\]
-Where:
-
-- \( \mathbf{N} \) is the surface normal
-- \( \mathbf{L} \) is the direction of the light source
-- \( I_{\text{light}} \) is the intensity of the light
+$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
 
 #### Code Snippet
 
@@ -90,13 +81,8 @@ float3 diffuse = _LightColor * NdotL;
 The Lambert lighting model, also known as diffuse lighting, calculates the illumination of a surface by assuming light is scattered equally in all directions. This is suitable for matte surfaces.
 
 #### Mathematical Formula
-\[
-I_{\text{diffuse}} = I_{\text{light}} \cdot \max(0, \mathbf{N} \cdot \mathbf{L})
-\]
-Where:
-- \( \mathbf{N} \) is the surface normal
-- \( \mathbf{L} \) is the direction of the light source
-- \( I_{\text{light}} \) is the intensity of the light
+
+$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
 
 #### Code Snippet
 ```hlsl
@@ -111,13 +97,8 @@ float3 diffuse = _LightColor * NdotL;
 The Lambert lighting model, also known as diffuse lighting, calculates the illumination of a surface by assuming light is scattered equally in all directions. This is suitable for matte surfaces.
 
 #### Mathematical Formula
-\[
-I_{\text{diffuse}} = I_{\text{light}} \cdot \max(0, \mathbf{N} \cdot \mathbf{L})
-\]
-Where:
-- \( \mathbf{N} \) is the surface normal
-- \( \mathbf{L} \) is the direction of the light source
-- \( I_{\text{light}} \) is the intensity of the light
+
+$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
 
 #### Code Snippet
 ```hlsl
@@ -132,13 +113,8 @@ float3 diffuse = _LightColor * NdotL;
 The Lambert lighting model, also known as diffuse lighting, calculates the illumination of a surface by assuming light is scattered equally in all directions. This is suitable for matte surfaces.
 
 #### Mathematical Formula
-\[
-I_{\text{diffuse}} = I_{\text{light}} \cdot \max(0, \mathbf{N} \cdot \mathbf{L})
-\]
-Where:
-- \( \mathbf{N} \) is the surface normal
-- \( \mathbf{L} \) is the direction of the light source
-- \( I_{\text{light}} \) is the intensity of the light
+
+$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
 
 #### Code Snippet
 ```hlsl
@@ -153,13 +129,8 @@ float3 diffuse = _LightColor * NdotL;
 The Lambert lighting model, also known as diffuse lighting, calculates the illumination of a surface by assuming light is scattered equally in all directions. This is suitable for matte surfaces.
 
 #### Mathematical Formula
-\[
-I_{\text{diffuse}} = I_{\text{light}} \cdot \max(0, \mathbf{N} \cdot \mathbf{L})
-\]
-Where:
-- \( \mathbf{N} \) is the surface normal
-- \( \mathbf{L} \) is the direction of the light source
-- \( I_{\text{light}} \) is the intensity of the light
+
+$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
 
 #### Code Snippet
 ```hlsl
@@ -174,13 +145,8 @@ float3 diffuse = _LightColor * NdotL;
 The Lambert lighting model, also known as diffuse lighting, calculates the illumination of a surface by assuming light is scattered equally in all directions. This is suitable for matte surfaces.
 
 #### Mathematical Formula
-\[
-I_{\text{diffuse}} = I_{\text{light}} \cdot \max(0, \mathbf{N} \cdot \mathbf{L})
-\]
-Where:
-- \( \mathbf{N} \) is the surface normal
-- \( \mathbf{L} \) is the direction of the light source
-- \( I_{\text{light}} \) is the intensity of the light
+
+$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
 
 #### Code Snippet
 ```hlsl
@@ -195,13 +161,8 @@ float3 diffuse = _LightColor * NdotL;
 The Lambert lighting model, also known as diffuse lighting, calculates the illumination of a surface by assuming light is scattered equally in all directions. This is suitable for matte surfaces.
 
 #### Mathematical Formula
-\[
-I_{\text{diffuse}} = I_{\text{light}} \cdot \max(0, \mathbf{N} \cdot \mathbf{L})
-\]
-Where:
-- \( \mathbf{N} \) is the surface normal
-- \( \mathbf{L} \) is the direction of the light source
-- \( I_{\text{light}} \) is the intensity of the light
+
+$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
 
 #### Code Snippet
 ```hlsl
