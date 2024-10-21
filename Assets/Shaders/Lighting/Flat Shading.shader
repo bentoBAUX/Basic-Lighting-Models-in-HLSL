@@ -63,13 +63,13 @@ Shader "Lighting/Flat Shading"
 
                 float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, float3(0,1,0)).rgb;
 
-                float3 ambient = Ia * (UNITY_LIGHTMODEL_AMBIENT + _LightColor0 + skyboxColor);
-                float3 diffuse = Id * _LightColor0.rgb;
+                float3 ambient = Ia * _DiffuseColour.rgb * (UNITY_LIGHTMODEL_AMBIENT + skyboxColor);
+                float3 diffuse = Id * _DiffuseColour.rgb * _LightColor0.rgb;
                 float3 specular = Is * _LightColor0.rgb;
 
-                float3 finalColor = ambient + diffuse + specular + skyboxColor * 0.2;
+                float3 finalColor = ambient + diffuse + specular;
 
-                i.color = fixed4(finalColor * _DiffuseColour.rgb, 1.0);
+                i.color = fixed4(finalColor ,1.0);
 
                 return i.color;
             }

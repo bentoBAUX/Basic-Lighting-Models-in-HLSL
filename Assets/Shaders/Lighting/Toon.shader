@@ -136,8 +136,8 @@ Shader "Lighting/Toon"
 
                 half3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, float3(0,1,0)).rgb;
 
-                half3 ambient = Ia * (UNITY_LIGHTMODEL_AMBIENT + _LightColor0.rgb + skyboxColor);
-                half3 diffuse = Id * _LightColor0.rgb * shadow;
+                half3 ambient = Ia * c * (UNITY_LIGHTMODEL_AMBIENT + skyboxColor);
+                half3 diffuse = Id * c * _LightColor0.rgb * shadow;
                 half3 specular = Is * _LightColor0.rgb * shadow;
 
                 // Fresnel Rim-Lighting
@@ -270,7 +270,7 @@ Shader "Lighting/Toon"
                 float Is = 0.0;  // Disable specular if checkbox is unchecked
                 #endif
 
-                half3 diffuse = Id * _LightColor0.rgb * shadow;
+                half3 diffuse = Id * c * _LightColor0.rgb * shadow;
                 half3 specular = Is * _LightColor0.rgb * shadow;
 
                 // Fresnel Rim-Lighting
