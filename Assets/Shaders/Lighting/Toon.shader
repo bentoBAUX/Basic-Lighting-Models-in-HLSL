@@ -136,7 +136,7 @@ Shader "Lighting/Toon"
 
                 half3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, float3(0,1,0)).rgb;
 
-                half3 ambient = Ia * c * (UNITY_LIGHTMODEL_AMBIENT + skyboxColor);
+                half3 ambient = Ia * c * (UNITY_LIGHTMODEL_AMBIENT + skyboxColor * 0.2);
                 half3 diffuse = Id * c * _LightColor0.rgb * shadow;
                 half3 specular = Is * _LightColor0.rgb * shadow;
 
