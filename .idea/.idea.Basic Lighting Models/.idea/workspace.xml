@@ -6,11 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="63492014-af44-41f9-948c-96f3ed9e5388" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Basic Lighting Models/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Basic Lighting Models/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Shaders/Lighting/Blinn-Phong.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shaders/Lighting/Blinn-Phong.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Shaders/Lighting/Flat Shading.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shaders/Lighting/Flat Shading.shader" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Shaders/Lighting/Gouraud-Phong.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shaders/Lighting/Gouraud-Phong.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Shaders/Lighting/Phong.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shaders/Lighting/Phong.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Shaders/Lighting/Toon.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shaders/Lighting/Toon.shader" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Shaders/Lighting/Lambert.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shaders/Lighting/Lambert.shader" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +127,7 @@
       <workItem from="1727624903812" duration="1267000" />
       <workItem from="1728650825076" duration="5750000" />
       <workItem from="1729277205708" duration="3673000" />
-      <workItem from="1729499448981" duration="1273000" />
+      <workItem from="1729499448981" duration="2132000" />
     </task>
     <servers />
   </component>
