@@ -134,11 +134,13 @@ o.color = fixed4((ambient + diffuse + specular) * _DiffuseColour.rgb, 1.0); // O
 ### 3. Phong Lighting
 
 #### Overview
-The Lambert lighting model, also known as diffuse lighting, calculates the illumination of a surface by assuming light is scattered equally in all directions. This is suitable for matte surfaces.
+Phong lighting builds the same mathematical principles as Gouraud-Phong lighting but differs in its implementation within shaders. While Gouraud shading performs the lighting calculation per vertex in the vertex shader and then interpolates the resulting colours across a triangle, Phong shading interpolates **surface normals** across the triangle and performs the lighting calculations per pixel in the fragment shader. This allows for a smoother and more detailed lighting effecs, paricularly for specular highlights and shiny surfaces.
+
+By performing per-pixel lighting, Phong shading offers a visually more realistic appearance, especially when dealing with curved surfaces or complex lighting conditions. However, the per-pixel lighting calculation coms at a higher computational cost, especially for large triangles or high-resolution renderings.
 
 #### Mathematical Formula
 
-$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
+*Same as in Gouraud shading*
 
 #### Code Snippet
 ```hlsl
