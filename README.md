@@ -43,21 +43,22 @@ In this example, the lighting will be calculated in the vertex shader.
 #### Mathematical Formula
 
 ```math
-I_d = \mathbf{n} \cdot \mathbf{l} 
+I_d = k_d * n \cdot l
 ```
 
 ```math
-B_D = I_d * C_s * I_l
+C_r = I_d * C_s * I_l
 ```
 Where:
 
+$\quad$ $k_d$ is the diffuse coefficient, controlling the strength of $I_d$. <br/>
 $\quad$ $n$ is the surface’s unit normal vector, pointing perpendicular to the surface.<br/>
 $\quad$ $l$ is the unit vector in the direction of the incoming light.<br/>
 $\quad$ $I_d$ represents the reflected diffuse light intensity. <br/>
 <br/>
 $\quad$ $C_s$ is the surface's colour.<br/>
 $\quad$ $I_l$ is the intensity (and colour) of the incoming light.<br/>
-$\quad$ $B_D$ is the final observed colour.<br/>
+$\quad$ $C_r$ is the final observed colour.<br/>
 
 #### Code Snippet
 
@@ -65,7 +66,7 @@ $\quad$ $B_D$ is the final observed colour.<br/>
 half3 n = UnityObjectToWorldNormal(v.normal); // Converting vertex normals to world normals.
 half3 l = normalize(_WorldSpaceLightPos0.xyz); // Normalises the light direction vector.
 
-float Id = kD * saturate(dot(n, l)); // kD controls the strength of Id. saturate() to clamp dot product values between 0 and 1 to prevent negative light intensities.
+float Id = kD * saturate(dot(n, l)); // saturate() to clamp dot product values between 0 and 1 to prevent negative light intensities.
 finalColour = Id * _DiffuseColour * _LightColor0; // Multiplying I with the surface's colour and the light's colour to get the final observed colour.
 ```
 ---
@@ -73,13 +74,43 @@ finalColour = Id * _DiffuseColour * _LightColor0; // Multiplying I with the surf
 
 #### Overview
 
-Gouraud shading, named after the French computer scientist Henri Gouraud, enhances Lambertian lighting by incorporating specular and ambient terms. As with Lambert shading, lighting calculations are performed at the vertices in the vertex shader, and the resulting colour values are interpolated across the surface of the polygon during rasterisation, which happens in the fragment shader.
+Gouraud shading, named after the French computer scientist Henri Gouraud, enhances Lambertian lighting by incorporating specular and ambient terms from Phong lighting. However unlike Phong Lighting, lighting calculations are performed at the vertices in the vertex shader, and the resulting colour values are interpolated across the surface of the polygon during rasterisation, which happens in the fragment shader.
 
 While efficient, Gouraud shading can lead to poor shading results, especially in low-poly models, due to the per-vertex lighting calculation. This approach may cause the loss of finer lighting details, such as sharp specular highlights, since those details are "smoothed out" through interpolation across the surface.
 
 #### Mathematical Formula
+```math
+I_a = k_a
+```
+```math
+I_d = k_d * n \cdot l
+```
+```math
+I_s = k_s * (r \cdot v)^s
+```
+<br/>
 
-$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
+```math
+C_r = (I_a + I_d + I_s) * C_s * I_l
+```
+
+Where:
+
+$\quad$ $k_a$, $k_d$, $k_s$ are the coefficients that control the strength of $I_a$, $I_d$, $I_s$ respectively. <br/>
+$\quad$ $n$ is the surface’s unit normal vector, pointing perpendicular to the surface.<br/>
+$\quad$ $l$ is the unit vector in the direction of the incoming light.<br/>
+$\quad$ $r$ is the reflection unit vector, which represents the direction that the light reflects off the surface. <br/>
+$\quad$ $v$ is the view vector, which represents the direction towards the camera or the viewer. <br/>
+$\quad$ $s$ is the specular exponent (higher values lead to sharper highlights). <br/> <br/>
+
+$\quad$ $I_a$ represents the reflected ambient light intensity. <br/>
+$\quad$ $I_d$ represents the reflected diffuse light intensity. <br/>
+$\quad$ $I_s$ represents the reflected specular light intensity. <br/>
+
+<br/>
+$\quad$ $C_s$ is the surface's colour.<br/>
+$\quad$ $I_l$ is the intensity (and colour) of the incoming light.<br/>
+$\quad$ $C_r$ is the final observed colour.<br/>
 
 #### Code Snippet
 
