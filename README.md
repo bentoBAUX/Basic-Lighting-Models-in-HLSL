@@ -134,7 +134,7 @@ o.color = fixed4((ambient + diffuse + specular) * _DiffuseColour.rgb, 1.0); // O
 ### 3. Phong Lighting
 
 #### Overview
-Phong lighting builds the same mathematical principles as Gouraud-Phong lighting but differs in its implementation within shaders. While Gouraud shading performs the lighting calculation per vertex in the vertex shader and then interpolates the resulting colours across a triangle, Phong shading interpolates **surface normals** across the triangle and performs the lighting calculations per pixel in the fragment shader. This allows for a smoother and more detailed lighting effecs, paricularly for specular highlights and shiny surfaces.
+Phong lighting builds upon the same mathematical principles as Gouraud-Phong lighting but differs in its implementation within shaders. While Gouraud shading performs the lighting calculation per vertex in the vertex shader and then interpolates the resulting colours across a triangle, Phong shading interpolates **surface normals** across the triangle and performs the lighting calculations per pixel in the fragment shader. This allows for a smoother and more detailed lighting effecs, paricularly for specular highlights and shiny surfaces.
 
 By performing per-pixel lighting, Phong shading offers a visually more realistic appearance, especially when dealing with curved surfaces or complex lighting conditions. However, the per-pixel lighting calculation coms at a higher computational cost, especially for large triangles or high-resolution renderings.
 
@@ -144,9 +144,7 @@ By performing per-pixel lighting, Phong shading offers a visually more realistic
 
 #### Code Snippet
 ```hlsl
-float3 lightDir = normalize(_LightPosition - worldPos);
-float NdotL = max(0, dot(normal, lightDir));
-float3 diffuse = _LightColor * NdotL;
+Same as in Gouraud shading but calculations are performed in the fragment shader.
 ```
 
 ### 4. Blinn-Phong Lighting
