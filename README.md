@@ -105,9 +105,8 @@ $\quad$ $s$ is the specular exponent (higher values lead to sharper highlights).
 
 $\quad$ $I_a$ represents the reflected ambient light intensity. <br/>
 $\quad$ $I_d$ represents the reflected diffuse light intensity. <br/>
-$\quad$ $I_s$ represents the reflected specular light intensity. <br/>
+$\quad$ $I_s$ represents the reflected specular light intensity. <br/>  <br/>
 
-<br/>
 $\quad$ $C_s$ is the surface's colour.<br/>
 $\quad$ $I_l$ is the intensity (and colour) of the incoming light.<br/>
 $\quad$ $C_r$ is the final observed colour.<br/>
@@ -115,9 +114,21 @@ $\quad$ $C_r$ is the final observed colour.<br/>
 #### Code Snippet
 
 ```hlsl
-float3 lightDir = normalize(_LightPosition - worldPos);
-float NdotL = max(0, dot(normal, lightDir));
-float3 diffuse = _LightColor * NdotL;
+float3 worldPos = mul(unity_ObjectToWorld, vx.vertex).xyz; // Transform vertex position to world space
+half3 n = UnityObjectToWorldNormal(vertex.normal);         // Transform normal to world space
+half3 l = normalize(_WorldSpaceLightPos0.xyz);             // Get normalized light direction
+half3 r = 2.0 * dot(n, l) * n - l;                         // Calculate reflection vector
+half3 v = normalize(_WorldSpaceCameraPos - worldPos);      // Get normalized view direction
+
+float Ia = _k.x;                                           // Ambient light intensity (_k.x = ambient coefficient)
+float Id = _k.y * saturate(dot(n, l));                     // Diffuse light intensity using Lambert's law
+float Is = _k.z * pow(saturate(dot(r, v)), _SpecularExponent); // Specular light intensity using Phong model
+
+float3 ambient = Ia;                                       // Calculate ambient lighting
+float3 diffuse = Id * _LightColor0.rgb;                    // Calculate diffuse lighting
+float3 specular = Is * _LightColor0.rgb;                   // Calculate specular lighting
+
+o.color = fixed4((ambient + diffuse + specular) * _DiffuseColour.rgb, 1.0); // Output final colour with full opacity
 ```
 
 ### 3. Phong Lighting
