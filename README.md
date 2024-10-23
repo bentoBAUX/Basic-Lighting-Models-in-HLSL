@@ -144,7 +144,7 @@ By performing per-pixel lighting, Phong shading offers a visually more realistic
 
 #### Code Snippet
 ```hlsl
-Same as in Gouraud shading but calculations are performed in the fragment shader.
+// Same as in Gouraud shading but calculations are performed in the fragment shader.
 ```
 
 ### 4. Blinn-Phong Lighting
@@ -152,7 +152,7 @@ Same as in Gouraud shading but calculations are performed in the fragment shader
 #### Overview
 Blinn-Phong shading is a refined version of Phong shading that optimises the calculation of specular highlights. Instead of using the reflection vector like Phong shading, it calculates a halfway vector, which is the vector between the light direction and the view direction. This makes the specular calculation more efficient, reducing the computational cost while maintaining similar visual quality, especially for smooth surfaces. 
 
-This lighting model also improves the visual quality of specular reflections as documented [here](https://learnopengl.com/Advanced-Lighting/Advanced-Lighting). It breaks down the effect of halfway vectors in detail, should you be interested in learning more. 
+This lighting model also improves the visual quality of specular reflections as documented [here](https://learnopengl.com/Advanced-Lighting/Advanced-Lighting) in detail.
 
 #### Mathematical Formula
 
