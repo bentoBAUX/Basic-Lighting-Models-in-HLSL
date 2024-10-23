@@ -150,17 +150,34 @@ Same as in Gouraud shading but calculations are performed in the fragment shader
 ### 4. Blinn-Phong Lighting
 
 #### Overview
-The Lambert lighting model, also known as diffuse lighting, calculates the illumination of a surface by assuming light is scattered equally in all directions. This is suitable for matte surfaces.
+Blinn-Phong shading is a refined version of Phong shading that optimises the calculation of specular highlights. Instead of using the reflection vector like Phong shading, it calculates a halfway vector, which is the vector between the light direction and the view direction. This makes the specular calculation more efficient, reducing the computational cost while maintaining similar visual quality, especially for smooth surfaces. 
+
+This lighting model also improves the visual quality of specular reflections as documented [here](https://learnopengl.com/Advanced-Lighting/Advanced-Lighting). It breaks down the effect of halfway vectors in detail, should you be interested in learning more. 
 
 #### Mathematical Formula
 
-$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
+```math
+H = \frac{L + V}{\|L + V\|}
+```
+<br/>
+
+```math
+I_{\text{s}} = k_s \cdot (N \cdot H)^{\alpha}
+```
+
+Where:
+
+$\quad k_s$ is the specular reflection coefficient. <br/>
+$\quad N$ is the surface normal.<br/>
+$\quad H$ is the halfway vector.<br/>
+$\quad \alpha$ is the shininess exponent (controls the highlight size).<br/>
+
 
 #### Code Snippet
 ```hlsl
-float3 lightDir = normalize(_LightPosition - worldPos);
-float NdotL = max(0, dot(normal, lightDir));
-float3 diffuse = _LightColor * NdotL;
+half3 h = normalize(l + v);                            // Compute halfway vector (both l and v are already normalised)
+
+float Is = _k.z * pow(saturate(dot(h, n)), _SpecularExponent); // Calculate the specular intensity using Blinn-Phong model
 ```
 
 ### 5. Flat Shading
