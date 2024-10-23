@@ -10,7 +10,7 @@ in code.
 - [Overview](#overview)
 - [Implemented Lighting Models](#implemented-lighting-models)
     - [Lambert Lighting](#1-lambert-lighting)
-    - [Gouraud Shading](#2-gouraud-shading)
+    - [Gouraud-Phong Lighting](#2-gouraud-phong-lighting)
     - [Phong Lighting](#3-phong-lighting)
     - [Blinn-Phong Lighting](#4-blinn-phong-lighting)
     - [Flat Shading](#5-flat-shading)
