@@ -207,7 +207,13 @@ half3 n = normalize(worldNormal);                                        // Ensu
 ### 6. Toon Shading
 
 #### Overview
-The Lambert lighting model, also known as diffuse lighting, calculates the illumination of a surface by assuming light is scattered equally in all directions. This is suitable for matte surfaces.
+- Blinn Phong used
+- Smoothstep from roystan
+- Additional light support
+- Rim lighitng
+- support for textures and normal maps
+- outlines
+
 
 #### Mathematical Formula
 ```math
