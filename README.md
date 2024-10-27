@@ -295,8 +295,9 @@ L_1 = \frac{\rho}{\pi}E_0\cos(\theta_i)(C_1 + C_2\cos(\phi_i-\phi_r)\tan(\beta) 
 L_2 = 0.17\frac{\rho^2}{\pi}E_0\cos(\theta_i)\frac{\sigma^2}{\sigma^2 + 0.13}[1-\cos(\phi_i-\phi_r)(\frac{2\beta}{\pi})^2]
 ```
 
-where
+where <br/>
 <br/>
+
 ```math
 C_1 = 1 - 0.5\frac{\sigma^2}{\sigma^2 + 0.33}
 ```
@@ -315,15 +316,18 @@ C_3 = 0.125\frac{\sigma^2}{\sigma^2 + 0.09}(\frac{4\alpha\beta}{\pi^2})^2
 ```math
 \beta = min(\theta_i, \theta_r)
 ```
-$\quad$ $\rho$ is the albedo of surface <br/>
-$\quad$ $\sigma$ is the roughness of surface <br/>
-$\quad$ $\theta_i$ the angle between the incident light and the surface's normal.<br/>
-$\quad$ $\theta_r$ the angle between the reflected light and the surface's normal.<br/>
-$\quad$ $\phi_i$ the azimuthal angle of the incident light with respect to the surface's normal.<br/>
-$\quad$ $\phi_r$ the azimuthal angle of the reflected light with respect to the surface's normal.<br/>
+
+$\quad$ $E_0$ is the irradiance when the facet is illuminated head-on. <br/>
+$\quad$ $\rho$ is the albedo of surface. <br/>
+$\quad$ $\sigma$ is the roughness of surface. <br/>
+$\quad$ $\theta_i$ is the angle between the incident light and the surface's normal.<br/>
+$\quad$ $\theta_r$ is the angle between the reflected light and the surface's normal.<br/>
+$\quad$ $\phi_i$ is the azimuthal angle of the incident light with respect to the surface's normal.<br/>
+$\quad$ $\phi_r$ is the azimuthal angle of the reflected light with respect to the surface's normal.<br/>
 #### Code Snippet
 ```hlsl
 ...
+float3 E0 = calculateIrradiance(l, n);                              // E = _LightColor0 * dot(n,l)
 // Calculate angles of incidence and reflection
 float theta_i = acos(dot(l, n));
 float theta_r = acos(dot(r, n));
