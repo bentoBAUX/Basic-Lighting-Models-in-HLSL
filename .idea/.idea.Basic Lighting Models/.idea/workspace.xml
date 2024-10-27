@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63492014-af44-41f9-948c-96f3ed9e5388" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Shaders/Lighting/Toon-Simple.shader" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Shaders/Lighting/Toon-Simple.shader.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Basic Lighting Models/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Basic Lighting Models/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Showcase.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Showcase.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,6 +129,8 @@
       <workItem from="1729277205708" duration="3673000" />
       <workItem from="1729499448981" duration="2132000" />
       <workItem from="1730046447749" duration="3869000" />
+      <workItem from="1730069485381" duration="204000" />
+      <workItem from="1730069713823" duration="299000" />
     </task>
     <servers />
   </component>
