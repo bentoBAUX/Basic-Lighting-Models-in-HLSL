@@ -327,7 +327,8 @@ $\quad$ $\phi_r$ is the azimuthal angle of the reflected light with respect to t
 #### Code Snippet
 ```hlsl
 ...
-float3 E0 = calculateIrradiance(l, n);                              // E = _LightColor0 * dot(n,l)
+float3 E0 = _LightColor0.rgb * saturate(dot(n, l)); 
+
 // Calculate angles of incidence and reflection
 float theta_i = acos(dot(l, n));
 float theta_r = acos(dot(r, n));
