@@ -316,7 +316,7 @@ C_3 = 0.125\frac{\sigma^2}{\sigma^2 + 0.09}(\frac{4\alpha\beta}{\pi^2})^2
 ```math
 \beta = min(\theta_i, \theta_r)
 ```
-
+and <br/><br/>
 $\quad$ $E_0$ is the irradiance when the facet is illuminated head-on. <br/>
 $\quad$ $\rho$ is the albedo of surface. <br/>
 $\quad$ $\sigma$ is the roughness of surface. <br/>
