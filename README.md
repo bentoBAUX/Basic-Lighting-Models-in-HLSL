@@ -271,7 +271,7 @@ rimIntensity = smoothstep(_FresnelPower - 0.01, _FresnelPower + 0.01, rimIntensi
 half4 fresnel = rimIntensity * _LightColor0;                        // Apply Fresnel effect as rim light
 
 // Final Colour Calculation
-half3 lighting = ambient + diffuse + specular + fresnel;                      // Combine diffuse, specular, and rim lighting
+half3 lighting = ambient + diffuse + specular + fresnel;            // Combine diffuse, specular, and rim lighting
 ...
 ```
 
