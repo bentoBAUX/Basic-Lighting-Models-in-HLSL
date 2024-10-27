@@ -209,14 +209,14 @@ half3 n = normalize(worldNormal);                                        // Ensu
 ### 6. Toon Shading
 
 #### Overview
-Toon shading, influenced by Japanese anime and Western animation, uses stylised lighting to give 3D graphics a 2D, hand-drawn look. The math behind this shader builds, too, on the Blinn-Phong lighting model, with smoothstep functions to create clear yet smooth lighting bands. For additional lights (directional, point, and spot), I used an additive approach to allow multiple sources to interact naturally without heavy performance costs. For the extra stylised look, I used a Fresnel-based approach for rim lighting, where light wraps around the edges of an object based on the viewing angle, creating a subtle highlight that enhances shape definition. Combined with textures, normal maps, and outlines for clear borders, this setup brings a polished comic-book feel. The full repository will be available soon.
+Toon shading, influenced by Japanese anime and Western animation, uses stylised lighting to give 3D graphics a 2D, hand-drawn look. The math behind this shader builds, too, on the Blinn-Phong lighting model, with smoothstep functions to create clear yet smooth lighting bands. For additional lights (directional, point, and spot), I used an additive approach to allow multiple sources to interact naturally without heavy performance costs. For the extra stylised look, I used a Fresnel-based approach for rim lighting which I learned from [here](https://roystan.net/articles/toon-shader/), where light wraps around the edges of an object based on the viewing angle, creating a subtle highlight that enhances shape definition. Combined with textures, normal maps, and outlines for clear borders, this setup brings a polished comic-book feel. The full repository will be available soon.
 
 
 #### Mathematical Formula
 
 *Smoothstep Diffuse and Specular*
 
-$\quad$ For sharp transitions, smoothstep is applied to both the diffuse and specular intensities, more information [here](https://roystan.net/articles/toon-shader/):
+$\quad$ For signature distinction between highlights and shadows of the toon shader, smoothstep is applied to both the diffuse and specular intensities:
 
 $$
 I_d = \text{smoothstep}(0.005, 0.01, I_d)
@@ -233,13 +233,13 @@ $\quad$ where $I_d$ is the diffuse intensity and $I_s$ is the specular intensity
 $\quad$ Rim lighting is calculated based on a Fresnel approximation, producing an intensity based on view angle and light direction:
 
 $$
-\text{RimIntensity} = (1 - v \cdot n) \cdot (N \cdot L)^{\text{RimThreshold}}
+\text{RimIntensity} = (1 - v \cdot n) \cdot (n \cdot l)^{\text{RimThreshold}} 
 $$
 
 $\quad$ A smoothstep function refines the rim lighting for soft transitions:
 
 $$
-\text{RimIntensity} = \text{smoothstep}(\text{FresnelPower} - 0.01, \text{FresnelPower} + 0.01, \text{RimIntensity})
+\text{RimIntensity} = \text{smoothstep}(\text{FresnelPower} - 0.01, \text{FresnelPower} + 0.01, \text{RimIntensity}) * \text{LightColor0}
 $$
 
 *Final Colour Calculation with Rim Light*
@@ -247,12 +247,10 @@ $$
 $\quad$ The final colour calculation, including ambient, diffuse, specular, and rim lighting, is:
 
 $$
-C_r = (\text{ambient} + \text{diffuse} + \text{specular} + \text{RimIntensity} \cdot I_l) \cdot C_s
+C_r = (\text{ambient} + \text{diffuse} + \text{specular} + \text{rim})
 $$
 
 $\quad$ This incorporates the rim lighting effect, enhancing edge definition based on the viewing angle, giving the shader a distinct stylised depth.
-
-
 
 #### Code Snippet
 ```hlsl
@@ -268,27 +266,92 @@ Is = smoothstep(0.005, 0.01, Is);                                   // Apply smo
 fixed rimDot = 1 - dot(v, n);                                       // Fresnel-based view-angle calculation
 float rimIntensity = rimDot * pow(NdotL, _RimThreshold);            // Adjust intensity with threshold
 rimIntensity = smoothstep(_FresnelPower - 0.01, _FresnelPower + 0.01, rimIntensity); // Smooth transition for rim
-half4 fresnel = rimIntensity * _LightColor0;                        // Apply Fresnel effect as rim light
+half4 rim = rimIntensity * _LightColor0;                            // Apply Fresnel effect as rim light
 
 // Final Colour Calculation
-half3 lighting = ambient + diffuse + specular + fresnel;            // Combine diffuse, specular, and rim lighting
+half3 lighting = ambient + diffuse + specular + rim;                // Combine diffuse, specular, and rim lighting
 ...
 ```
 
 ### 7. Oren-Nayar
 
 #### Overview
-The Lambert lighting model, also known as diffuse lighting, calculates the illumination of a surface by assuming light is scattered equally in all directions. This is suitable for matte surfaces.
+The Oren-Nayar model is a reflection model developed by Michael Oren and Shree K. Nayar to extend simple Lambertian shading for rough, diffuse surfaces. Unlike Lambertian shading, which assumes light scatters evenly in all directions, Oren-Nayar calculates how surface roughness affects light scattering, using parameters like the viewer's angle, light direction, and surface roughness, σ. This model captures realistic diffuse behaviour, especially for materials like cloth or plaster, where surface microstructures cause directional variation in brightness. By introducing these variables, Oren-Nayar enables more realistic shading in computer graphics for non-smooth, matte surfaces. My implementation directly mirrors the standard calculations outlined on [Wikipedia](https://en.wikipedia.org/wiki/Oren–Nayar_reflectance_model), using the same parameters and cosine terms to enhance realism in shading effects for rough, matte surfaces.
 
 #### Mathematical Formula
 
-$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
+The reflected light $L_r$ is given by
 
+```math
+L_r = L_1 + L_2
+```
+
+and the direct illumination term, $L_1$, and the term $L_2$, which accounts for light bounces between the facets, are defined as follows.
+
+```math
+L_1 = \frac{\rho}{\pi}E_0\cos(\theta_i)(C_1 + C_2\cos(\phi_i-\phi_r)\tan(\beta) + C_3(1-|(cos(\phi_i-\phi_r)|)\tan(\frac{\alpha+\beta}{2})
+```
+```math
+L_2 = 0.17\frac{\rho^2}{\pi}E_0\cos(\theta_i)\frac{\sigma^2}{\sigma^2 + 0.13}[1-\cos(\phi_i-\phi_r)(\frac{2\beta}{\pi})^2]
+```
+
+where
+<br/>
+```math
+C_1 = 1 - 0.5\frac{\sigma^2}{\sigma^2 + 0.33}
+```
+```math
+C_2 = \begin{cases}
+0.45 \frac{\sigma^2}{\sigma^2 + 0.09} \sin \alpha & \text{if } \cos(\phi_i - \phi_r) \geq 0, \\
+0.45 \frac{\sigma^2}{\sigma^2 + 0.09} \left( \sin \alpha - \left( \frac{2 \beta}{\pi} \right)^3 \right) & \text{otherwise,}
+\end{cases}
+```
+```math
+C_3 = 0.125\frac{\sigma^2}{\sigma^2 + 0.09}(\frac{4\alpha\beta}{\pi^2})^2
+```
+```math
+\alpha = max(\theta_i, \theta_r),
+```
+```math
+\beta = min(\theta_i, \theta_r)
+```
+$\quad$ $\rho$ is the albedo of surface <br/>
+$\quad$ $\sigma$ is the roughness of surface <br/>
+$\quad$ $\theta_i$ the angle between the incident light and the surface's normal.<br/>
+$\quad$ $\theta_r$ the angle between the reflected light and the surface's normal.<br/>
+$\quad$ $\phi_i$ the azimuthal angle of the incident light with respect to the surface's normal.<br/>
+$\quad$ $\phi_r$ the azimuthal angle of the reflected light with respect to the surface's normal.<br/>
 #### Code Snippet
 ```hlsl
-float3 lightDir = normalize(_LightPosition - worldPos);
-float NdotL = max(0, dot(normal, lightDir));
-float3 diffuse = _LightColor * NdotL;
+...
+// Calculate angles of incidence and reflection
+float theta_i = acos(dot(l, n));
+float theta_r = acos(dot(r, n));
+
+// Project light and view vectors onto the tangent plane to calculate cosPhi, the cosine of the azimuthal angle (difference in orientation) between projected light and view
+float3 Lproj = normalize(l - n * NdotL);
+float3 Vproj = normalize(v - n * NdotV + 1);                        // +1 to remove a visual artifact
+float cosPhi = dot(Lproj, Vproj);
+
+// Determine max and min angles for roughness calculation
+float alpha = max(theta_i, theta_r);
+float beta = min(theta_i, theta_r);
+float sigmaSqr = _sigma * _sigma;
+
+// Calculate roughness coefficients C1, C2, C3
+float C1 = 1 - 0.5 * (sigmaSqr / (sigmaSqr + 0.33));
+float C2 = cosPhi >= 0 ? 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * sin(alpha) 
+            : 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * (sin(alpha) - pow((2.0 * beta) / UNITY_PI, 3.0));
+float C3 = 0.125 * (sigmaSqr / (sigmaSqr + 0.09)) * pow((4.0 * alpha * beta) / (UNITY_PI * UNITY_PI), 2.0);
+
+// Compute direct illumination term L1 and interreflected term L2
+float3 L1 = _DiffuseColour * E0 * cos(theta_i) * (C1 + (C2 * cosPhi * tan(beta)) + (C3 * (1.0 - abs(cosPhi)) * tan((alpha + beta) / 2.0)));
+float3 L2 = 0.17 * (_DiffuseColour * _DiffuseColour) * E0 * cos(theta_i) * (sigmaSqr / (sigmaSqr + 0.13)) 
+            * (1.0 - cosPhi * pow((2.0 * beta) / UNITY_PI, 2.0));
+
+// Final light intensity
+float3 L = (L1 + L2);
+...
 ```
 
 ### 8. Cook-Torrance
