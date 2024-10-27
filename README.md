@@ -335,7 +335,7 @@ float theta_r = acos(dot(r, n));
 
 // Project light and view vectors onto the tangent plane to calculate cosPhi, the cosine of the azimuthal angle (difference in orientation) between projected light and view
 float3 Lproj = normalize(l - n * NdotL);
-float3 Vproj = normalize(v - n * NdotV + 1);                        // +1 to remove a visual artifact
+float3 Vproj = normalize(v - n * NdotV + 1); // +1 to remove a visual artifact
 float cosPhi = dot(Lproj, Vproj);
 
 // Determine max and min angles for roughness calculation
