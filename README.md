@@ -167,17 +167,18 @@ I_{\text{s}} = k_s \cdot (N \cdot H)^{\alpha}
 
 Where: 
 
-$\quad k_s$ is the specular reflection coefficient. <br/>
-$\quad N$ is the surface normal.<br/>
-$\quad H$ is the halfway vector.<br/>
-$\quad \alpha$ is the shininess exponent (controls the highlight size).<br/>
+$\quad$ $k_s$ is the specular reflection coefficient. <br/>
+$\quad$ $N$ is the surface normal.<br/>
+$\quad$ $H$ is the halfway vector.<br/>
+$\quad$ $\alpha$ is the shininess exponent (controls the highlight size).<br/>
 
 
 #### Code Snippet
 ```hlsl
 half3 h = normalize(l + v);                            // Compute halfway vector (both l and v are already normalised)
-
+...
 float Is = _k.z * pow(saturate(dot(h, n)), _SpecularExponent); // Calculate the specular intensity using Blinn-Phong model
+...
 ```
 
 ### 5. Flat Shading
@@ -192,39 +193,86 @@ N = \frac{\text{cross}\left(\frac{\partial P}{\partial y}, \frac{\partial P}{\pa
 
 Where: 
 
-$\quad P$ is the world position of the vertex.<br/>
-$\quad \frac{\partial P}{\partial x}$ is the partial derivative of the world position in the x direction.<br/>
-$\quad \frac{\partial P}{\partial y}$ is the partial derivative of the world position in the y direction.<br/>
-$\quad N$ is the flat normal for the triangle.<br/>
+$\quad$ $P$ is the world position of the vertex.<br/>
+$\quad$ $\frac{\partial P}{\partial x}$ is the partial derivative of the world position in the x direction.<br/>
+$\quad$ $\frac{\partial P}{\partial y}$ is the partial derivative of the world position in the y direction.<br/>
+$\quad$ $N$ is the flat normal for the triangle.<br/>
 
 
 #### Code Snippet
 ```hlsl
 float3 worldNormal = normalize(cross(ddy(i.worldPos), ddx(i.worldPos))); // Calculate the flat normal for the triangle using screen-space derivatives
-half3 n = normalize(worldNormal);                                        // Ensure the normal is a unit vector for lighting calculations                     
+half3 n = normalize(worldNormal);                                        // Ensure the normal is a unit vector for lighting calculations
+...
 ```
 
 ### 6. Toon Shading
 
 #### Overview
-- Blinn Phong used
-- Smoothstep from roystan
-- Additional light support
-- Rim lighitng
-- support for textures and normal maps
-- outlines
+Toon shading, influenced by Japanese anime and Western animation, uses stylised lighting to give 3D graphics a 2D, hand-drawn look. The math behind this shader builds, too, on the Blinn-Phong lighting model, with smoothstep functions to create clear yet smooth lighting bands. For additional lights (directional, point, and spot), I used an additive approach to allow multiple sources to interact naturally without heavy performance costs. For the extra stylised look, I used a Fresnel-based approach for rim lighting, where light wraps around the edges of an object based on the viewing angle, creating a subtle highlight that enhances shape definition. Combined with textures, normal maps, and outlines for clear borders, this setup brings a polished comic-book feel. The full repository will be available soon.
 
 
 #### Mathematical Formula
-```math
-N = \frac{\text{cross}\left(\frac{\partial P}{\partial y}, \frac{\partial P}{\partial x}\right)}{\|\text{cross}\left(\frac{\partial P}{\partial y}, \frac{\partial P}{\partial x}\right)\|}
-```
+
+*Smoothstep Diffuse and Specular*
+
+$\quad$ For sharp transitions, smoothstep is applied to both the diffuse and specular intensities, more information [here](https://roystan.net/articles/toon-shader/):
+
+$$
+I_d = \text{smoothstep}(0.005, 0.01, I_d)
+$$
+
+$$
+I_s = \text{smoothstep}(0.005, 0.01, I_s)
+$$
+
+$\quad$ where $I_d$ is the diffuse intensity and $I_s$ is the specular intensity from [Blinn-Phong](#4-blinn-phong-lighting).
+
+*Rim Lighting (Fresnel)*
+
+$\quad$ Rim lighting is calculated based on a Fresnel approximation, producing an intensity based on view angle and light direction:
+
+$$
+\text{RimIntensity} = (1 - v \cdot n) \cdot (N \cdot L)^{\text{RimThreshold}}
+$$
+
+$\quad$ A smoothstep function refines the rim lighting for soft transitions:
+
+$$
+\text{RimIntensity} = \text{smoothstep}(\text{FresnelPower} - 0.01, \text{FresnelPower} + 0.01, \text{RimIntensity})
+$$
+
+*Final Colour Calculation with Rim Light*
+
+$\quad$ The final colour calculation, including ambient, diffuse, specular, and rim lighting, is:
+
+$$
+C_r = (\text{ambient} + \text{diffuse} + \text{specular} + \text{RimIntensity} \cdot I_l) \cdot C_s
+$$
+
+$\quad$ This incorporates the rim lighting effect, enhancing edge definition based on the viewing angle, giving the shader a distinct stylised depth.
+
+
 
 #### Code Snippet
 ```hlsl
-float3 lightDir = normalize(_LightPosition - worldPos);
-float NdotL = max(0, dot(normal, lightDir));
-float3 diffuse = _LightColor * NdotL;
+// Smoothstep Diffuse Calculation
+...
+Id = smoothstep(0.005, 0.01, Id);                                   // Apply smoothstep to diffuse term
+
+// Smoothstep Specular Calculation
+...
+Is = smoothstep(0.005, 0.01, Is);                                   // Apply smoothstep to specular term
+
+// Fresnel Rim Lighting
+fixed rimDot = 1 - dot(v, n);                                       // Fresnel-based view-angle calculation
+float rimIntensity = rimDot * pow(NdotL, _RimThreshold);            // Adjust intensity with threshold
+rimIntensity = smoothstep(_FresnelPower - 0.01, _FresnelPower + 0.01, rimIntensity); // Smooth transition for rim
+half4 fresnel = rimIntensity * _LightColor0;                        // Apply Fresnel effect as rim light
+
+// Final Colour Calculation
+half3 lighting = ambient + diffuse + specular + fresnel;                      // Combine diffuse, specular, and rim lighting
+...
 ```
 
 ### 7. Oren-Nayar
