@@ -343,7 +343,7 @@ float alpha = max(theta_i, theta_r);
 float beta = min(theta_i, theta_r);
 float sigmaSqr = _sigma * _sigma;
 
-// Calculate roughness coefficients C1, C2, C3
+// Calculate C1, C2, C3
 float C1 = 1 - 0.5 * (sigmaSqr / (sigmaSqr + 0.33));
 float C2 = cosPhi >= 0 ? 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * sin(alpha) 
             : 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * (sin(alpha) - pow((2.0 * beta) / UNITY_PI, 3.0));
