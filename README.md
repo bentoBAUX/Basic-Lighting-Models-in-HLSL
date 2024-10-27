@@ -216,7 +216,7 @@ Toon shading, influenced by Japanese anime and Western animation, uses stylised 
 
 *Smoothstep Diffuse and Specular*
 
-$\quad$ For signature distinction between highlights and shadows of the toon shader, smoothstep is applied to both the diffuse and specular intensities:
+$\quad$ For the shader's signature distinction between highlights and shadows, smoothstep is applied to both diffuse and specular intensities:
 
 $$
 I_d = \text{smoothstep}(0.005, 0.01, I_d)
