@@ -91,7 +91,6 @@ Shader "Lighting/Toon-Simple"
                 half4 c = _DiffuseColour;
 
                 half3 n = normalize(i.worldNormal);
-                // Transforming normal map vectors from tangent space to world space. TBN * v_world = v_tangent | TBN-1 * v_tangent = v_world
                 half3 l = normalize(_WorldSpaceLightPos0.xyz);
                 half3 v = normalize(_WorldSpaceCameraPos - i.worldPos);
                 half3 h = normalize(l + v);
