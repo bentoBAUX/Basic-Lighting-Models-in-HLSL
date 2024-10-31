@@ -295,7 +295,7 @@ L_1 = \frac{\rho}{\pi}E_0\cos(\theta_i)(C_1 + C_2\cos(\phi_i-\phi_r)\tan(\beta) 
 L_2 = 0.17\frac{\rho^2}{\pi}E_0\cos(\theta_i)\frac{\sigma^2}{\sigma^2 + 0.13}[1-\cos(\phi_i-\phi_r)(\frac{2\beta}{\pi})^2]
 ```
 
-where <br/>
+Where: <br/>
 <br/>
 
 ```math
@@ -374,7 +374,7 @@ The Cook-Torrance model implements the specular term so:
 specular = \frac{FDG}{\pi(V \cdot N)(N \cdot L)}
 ```
 
-where <br/>
+Where: <br/>
 <br/>
 
 D is the Beckmann distribution factor
