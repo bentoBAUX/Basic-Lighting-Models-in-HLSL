@@ -362,7 +362,9 @@ float3 L = (L1 + L2);
 ### 8. Cook-Torrance
 
 #### Overview
-The Lambert lighting model, also known as diffuse lighting, calculates the illumination of a surface by assuming light is scattered equally in all directions. This is suitable for matte surfaces.
+The Cook-Torrance model is a reflection model developed by Robert Cook and Kenneth Torrance in 1982, designed to simulate specular reflection on rough, shiny surfaces with a level of realism that surpasses simpler models like Phong or Blinn-Phong. While those earlier models treat surfaces as smooth, Cook-Torrance assumes a surface is made up of countless microscopic facets, each acting as a tiny mirror. This model calculates specular reflection based on factors like viewing angle, light direction, and a roughness parameter, similar to Oren-Nayar but tailored to specular highlights.
+
+Core components include the Fresnel effect, which increases reflectivity at grazing angles; the Geometry Term, which accounts for shadowing between facets; and the Normal Distribution Function (NDF), describing the spread of facet orientations, with rougher surfaces creating broader specular highlights. By combining Cook-Torrance for specular reflection with Oren-Nayar for diffuse reflection, this approach captures the nuanced behaviour of light on both matte and glossy surfaces. My implementation mirrors standard calculations as described [here](https://en.wikipedia.org/wiki/Specular_highlight#Cook%E2%80%93Torrance_model), including the Fresnel-Schlick approximation and GGX distribution, for lifelike specular effects on rough surfaces.
 
 #### Mathematical Formula
 
