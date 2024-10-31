@@ -368,7 +368,21 @@ Core components include the Fresnel effect, which increases reflectivity at graz
 
 #### Mathematical Formula
 
-$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
+The Cook-Torrance model implements the specular term so:
+
+```math
+specular = \frac{FDG}{\pi(V \cdot N)(N \cdot L)}
+```
+
+where <br/>
+<br/>
+
+D is the Beckmann distribution factor
+
+```math
+D = \frac{exp(\frac{\tan^{2}(\alpha)}{m^2})}{\pi m^2\cos^{2}(\alpha)}
+
+```
 
 #### Code Snippet
 ```hlsl
