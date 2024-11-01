@@ -16,9 +16,6 @@ in code.
     - [Toon Shading](#6-toon-shading)
     - [Oren-Nayar](#7-oren-nayar)
     - [Cook-Torrance](#8-cook-torrance)
-- [Usage](#usage)
-- [Installation](#installation)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Overview
