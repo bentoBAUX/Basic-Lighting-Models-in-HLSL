@@ -406,22 +406,34 @@ G = min(1, \frac{2(H \cdot N)(V \cdot N)}{V \cdot H}, \frac{2(H \cdot N)(L \cdot
 
 #### Code Snippet
 ```hlsl
-float NdotH = saturate(dot(n, h));
-float a = acos(NdotH);
-float m = clamp(sigmaSqr, 0.01, 1);
-float exponent = exp(-tan(a) * tan(a) / (m * m));
-float D = clamp(exponent / (UNITY_PI * m * m * pow(NdotH, 4)), 0.01, 1e30);
+...                                                        // Oren-Nayar above...
+float NdotH = saturate(dot(n, h));                         // Dot product between normal and halfway vector, clamped to [0,1]
+float a = acos(NdotH);                                     // Convert NdotH to an angle in radians
+float m = clamp(sigmaSqr, 0.01, 1);                        // Clamp roughness value to avoid extreme cases
+float exponent = exp(-tan(a) * tan(a) / (m * m));          // Exponent term for Beckmann distribution
+float D = clamp(exponent / (UNITY_PI * m * m * pow(NdotH, 4)), 0.01, 1e30);  // Beckmann distribution function (D)
 
-const float _RefractiveIndex = 2.5;
-
+// Base Fresnel reflectance (F0) calculated from the refractive index
 float F0 = ((_RefractiveIndex - 1) * (_RefractiveIndex - 1)) / ((_RefractiveIndex + 1) * (_RefractiveIndex + 1));
+
+// Fresnel term (F) using Schlick's approximation
 float F = F0 + (1 - F0) * pow(1 - clamp(dot(v, h), 0, 1), 5);
 
+// Geometry term (G) using Smith's approximation
 float G1 = 2 * dot(h, n) * dot(n, v) / dot(v, h);
 float G2 = 2 * dot(h, n) * dot(n, l) / dot(v, h);
-float G = min(1, min(G1, G2));
+float G = min(1, min(G1, G2));                             // Final geometry term (G) as the minimum of G1 and G2
 
-float specular = ((D * G * F) / (4 * dot(n, l)) * dot(n, v)) * _LightColor0;
+// Specular reflection component
+float specular = ((D * G * F) / (4 * dot(n, l) * dot(n, v))) * _LightColor0;
+
+// Sample ambient light from skybox and calculate overall ambient light
+float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, float3(0,1,0)).rgb;
+fixed3 ambient = 0.5 * (UNITY_LIGHTMODEL_AMBIENT + _LightColor0 + skyboxColor);
+
+// Combine ambient and specular components with a metallic factor and return final color
+return float4(ambient + lerp(L, specular, _Metallic), 1.0);
+
 ```
 
 
