@@ -5,6 +5,7 @@ Shader "Lighting/Cook-Torrance"
         _sigma ("Roughness", Range(0,1)) = 0.8
         _DiffuseColour ("Surface Colour", Color) = (1,1,1,1)
         _Metallic ("Metallic", Range(0, 1)) = 0.5
+        _RefractiveIndex ("Refractive Index", Range(1, 5)) = 2.5
     }
 
     SubShader
@@ -40,6 +41,7 @@ Shader "Lighting/Cook-Torrance"
             uniform fixed4 _DiffuseColour;
             uniform fixed4 _LightColor0;
             uniform float _Metallic;
+            uniform float _RefractiveIndex;
 
             v2f vert(appdata v)
             {
@@ -109,11 +111,8 @@ Shader "Lighting/Cook-Torrance"
                 float exponent = exp(-tan(a) * tan(a) / (m * m));
                 float D = clamp(exponent / (UNITY_PI * m * m * pow(NdotH, 4)), 0.01, 1e30);
 
-                const float _RefractiveIndex = 2.5;
-
-                float F0 = ((_RefractiveIndex - 1) * (_RefractiveIndex - 1)) / ((_RefractiveIndex + 1) * (
-                    _RefractiveIndex + 1));
-                float F = F0 + (1 - F0) * pow(1 - clamp(dot(v, n), 0, 1), 5);
+                float F0 = ((_RefractiveIndex - 1) * (_RefractiveIndex - 1)) / ((_RefractiveIndex + 1) * (_RefractiveIndex + 1));
+                float F = F0 + (1 - F0) * pow(1 - clamp(dot(v, h), 0, 1), 5);
 
                 float G1 = 2 * dot(h, n) * dot(n, v) / dot(v, h);
                 float G2 = 2 * dot(h, n) * dot(n, l) / dot(v, h);
