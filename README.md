@@ -1,4 +1,3 @@
-# *README IS WORK-IN-PROGRESS*
 # Lighting Models in Unity using HLSL
 
 This repository contains several basic lighting models implemented in Unity using HLSL (High-Level Shading Language).
@@ -426,14 +425,7 @@ float G = min(1, min(G1, G2));                             // Final geometry ter
 
 // Specular reflection component
 float specular = ((D * G * F) / (4 * dot(n, l) * dot(n, v))) * _LightColor0;
-
-// Sample ambient light from skybox and calculate overall ambient light
-float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, float3(0,1,0)).rgb;
-fixed3 ambient = 0.5 * (UNITY_LIGHTMODEL_AMBIENT + _LightColor0 + skyboxColor);
-
-// Combine ambient and specular components with a metallic factor and return final color
-return float4(ambient + lerp(L, specular, _Metallic), 1.0);
-
+...
 ```
 
 
