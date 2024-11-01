@@ -377,11 +377,16 @@ specular = \frac{FDG}{\pi(V \cdot N)(N \cdot L)}
 Where: <br/>
 <br/>
 
-D is the Beckmann distribution factor
+F is the Fresnel term of this equation, approximated using [Schlick's approximation](https://en.wikipedia.org/wiki/Schlick%27s_approximation) for performance reasons. $R_0$ is calculated using 
 
 ```math
-D = \frac{exp(\frac{\tan^{2}(\alpha)}{m^2})}{\pi m^2\cos^{2}(\alpha)}
+F = R_0 + (1-R_0)(1-\cos(\theta))^5
+```
 
+D is the Beckmann distribution factor, where $m$ is in this case the roughness of the material (see Wikipedia for detailed explanation) and $\alpha$ is the arccosine of the dot product between the surface normal vector and the halfway vector that we calculated in Blinn Phong.
+
+```math
+D = \frac{exp(\frac{\tan^{2}(\alpha)}{m^2})}{\pi m^2\cos^{4}(\alpha)}
 ```
 
 #### Code Snippet
