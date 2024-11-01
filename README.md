@@ -377,11 +377,11 @@ specular = \frac{FDG}{\pi(V \cdot N)(N \cdot L)}
 Where: <br/>
 <br/>
 
-F is the Fresnel term of this equation, approximated using [Schlick's approximation](https://en.wikipedia.org/wiki/Schlick%27s_approximation) for performance reasons. For simplicity, the index of refraction $n_2$ is set to one, as it is the refraction index of air. The refraction index $n_1$ can be set by the user. 
+F is the Fresnel term of this equation, approximated using [Schlick's approximation](https://en.wikipedia.org/wiki/Schlick%27s_approximation) for performance reasons. For simplicity, the index of refraction $n_1$ is up to the user to set, and $n_2$ is set to one, as it is the refraction index of air.
 
 $R_0$ is therefore our reflective coefficient for the light vector parallel to the normal. 
 
-$\cos(\theta)$ will be the dot product between the view vector and light vector.
+$\cos(\theta)$ will be the dot product between the view vector and halfway vector.
 
 ```math
 F = R_0 + (1-R_0)(1-\cos(\theta))^5
@@ -415,7 +415,7 @@ float D = clamp(exponent / (UNITY_PI * m * m * pow(NdotH, 4)), 0.01, 1e30);
 const float _RefractiveIndex = 2.5;
 
 float F0 = ((_RefractiveIndex - 1) * (_RefractiveIndex - 1)) / ((_RefractiveIndex + 1) * (_RefractiveIndex + 1));
-float F = F0 + (1 - F0) * pow(1 - clamp(dot(v, n), 0, 1), 5);
+float F = F0 + (1 - F0) * pow(1 - clamp(dot(v, h), 0, 1), 5);
 
 float G1 = 2 * dot(h, n) * dot(n, v) / dot(v, h);
 float G2 = 2 * dot(h, n) * dot(n, l) / dot(v, h);
