@@ -377,10 +377,14 @@ specular = \frac{FDG}{\pi(V \cdot N)(N \cdot L)}
 Where: <br/>
 <br/>
 
-F is the Fresnel term of this equation, approximated using [Schlick's approximation](https://en.wikipedia.org/wiki/Schlick%27s_approximation) for performance reasons. $R_0$ is calculated using 
+F is the Fresnel term of this equation, approximated using [Schlick's approximation](https://en.wikipedia.org/wiki/Schlick%27s_approximation) for performance reasons. For simplicity, the index of refraction $n_2$ is set to one, as it is the refraction index of air. The refraction index $n_1$ can be set by the user. $R_0$ is therefore our reflective coefficient for the light vector parallel to the normal. 
 
 ```math
 F = R_0 + (1-R_0)(1-\cos(\theta))^5
+```
+<br/>
+```math
+R_0 = (\frac{n_1 - n_2}{n_1 + n_2})^2
 ```
 
 D is the Beckmann distribution factor, where $m$ is in this case the roughness of the material (see Wikipedia for detailed explanation) and $\alpha$ is the arccosine of the dot product between the surface normal vector and the halfway vector that we calculated in Blinn Phong.
