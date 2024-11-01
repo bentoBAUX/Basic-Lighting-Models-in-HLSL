@@ -428,4 +428,5 @@ float specular = ((D * G * F) / (4 * dot(n, l) * dot(n, v))) * _LightColor0;
 ...
 ```
 
-
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
