@@ -380,6 +380,7 @@ Where: <br/>
 F is the Fresnel term of this equation, approximated using [Schlick's approximation](https://en.wikipedia.org/wiki/Schlick%27s_approximation) for performance reasons. For simplicity, the index of refraction $n_2$ is set to one, as it is the refraction index of air. The refraction index $n_1$ can be set by the user. 
 
 $R_0$ is therefore our reflective coefficient for the light vector parallel to the normal. 
+
 $\cos(\theta)$ will be the dot product between the view vector and light vector.
 
 ```math
@@ -397,11 +398,30 @@ D is the Beckmann distribution factor, where $m$ is in this case the roughness o
 D = \frac{exp(\frac{\tan^{2}(\alpha)}{m^2})}{\pi m^2\cos^{4}(\alpha)}
 ```
 
+and G is our geometric attenuation term, where $L$, $N$, $H$ and $V$ are the vector to the light source, surface normal, halfway vector and view direction respectively.
+
+```math
+G = min(1, \frac{2(H \cdot N)(V \cdot N)}{V \cdot H}, \frac{2(H \cdot N)(L \cdot N)}{V \cdot H})
+```
+
 #### Code Snippet
 ```hlsl
-float3 lightDir = normalize(_LightPosition - worldPos);
-float NdotL = max(0, dot(normal, lightDir));
-float3 diffuse = _LightColor * NdotL;
+float NdotH = saturate(dot(n, h));
+float a = acos(NdotH);
+float m = clamp(sigmaSqr, 0.01, 1);
+float exponent = exp(-tan(a) * tan(a) / (m * m));
+float D = clamp(exponent / (UNITY_PI * m * m * pow(NdotH, 4)), 0.01, 1e30);
+
+const float _RefractiveIndex = 2.5;
+
+float F0 = ((_RefractiveIndex - 1) * (_RefractiveIndex - 1)) / ((_RefractiveIndex + 1) * (_RefractiveIndex + 1));
+float F = F0 + (1 - F0) * pow(1 - clamp(dot(v, n), 0, 1), 5);
+
+float G1 = 2 * dot(h, n) * dot(n, v) / dot(v, h);
+float G2 = 2 * dot(h, n) * dot(n, l) / dot(v, h);
+float G = min(1, min(G1, G2));
+
+float specular = ((D * G * F) / (4 * dot(n, l)) * dot(n, v)) * _LightColor0;
 ```
 
 
