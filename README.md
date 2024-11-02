@@ -351,7 +351,7 @@ float3 L2 = 0.17 * (_DiffuseColour * _DiffuseColour) * E0 * cos(theta_i) * (sigm
             * (1.0 - cosPhi * pow((2.0 * beta) / UNITY_PI, 2.0));
 
 // Final light intensity
-float3 L = saturate(L1+L2); 
+float3 L = saturate(L1+L2); // Clamped between 0 and 1 to prevent lighting values from going negative or exceeding 1.
 ...
 ```
 
