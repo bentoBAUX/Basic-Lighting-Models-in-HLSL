@@ -89,12 +89,8 @@ Shader "Lighting/Cook-Torrance"
                 // Oren-Nayar: https://en.wikipedia.org/wiki/Oren–Nayar_reflectance_model
 
                 float C1 = 1 - 0.5 * (sigmaSqr / (sigmaSqr + 0.33));
-                float C2 = cosPhi >= 0
-                                              ? 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * sin(alpha)
-                                              : 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * (sin(alpha) - pow(
-                                                  (2.0 * beta) / UNITY_PI, 3.0));
-                float C3 = 0.125 * (sigmaSqr / (sigmaSqr + 0.09)) *
-                    pow((4.0 * alpha * beta) / (UNITY_PI * UNITY_PI), 2);
+                float C2 = cosPhi >= 0? 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * sin(alpha): 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * (sin(alpha) - pow((2.0 * beta) / UNITY_PI, 3.0));
+                float C3 = 0.125 * (sigmaSqr / (sigmaSqr + 0.09)) * pow((4.0 * alpha * beta) / (UNITY_PI * UNITY_PI), 2);
 
                 float3 L1 = _DiffuseColour * E0 * cos(theta_i) * (C1 + (C2 * cosPhi * tan(beta)) + (C3 * (1.0 - abs(cosPhi)) *
                     tan((alpha + beta) / 2.0)));
