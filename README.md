@@ -351,7 +351,7 @@ float3 L2 = 0.17 * (_DiffuseColour * _DiffuseColour) * E0 * cos(theta_i) * (sigm
             * (1.0 - cosPhi * pow((2.0 * beta) / UNITY_PI, 2.0));
 
 // Final light intensity
-float3 L = (L1 + L2);
+float3 L = saturate(L1+L2); 
 ...
 ```
 
@@ -407,7 +407,7 @@ float NdotH = saturate(dot(n, h));                         // Dot product betwee
 float a = acos(NdotH);                                     // Convert NdotH to an angle in radians
 float m = clamp(sigmaSqr, 0.01, 1);                        // Clamp roughness value to avoid extreme cases
 float exponent = exp(-tan(a) * tan(a) / (m * m));          // Exponent term for Beckmann distribution
-float D = clamp(exponent / (UNITY_PI * m * m * pow(NdotH, 4)), 0.01, 1e30);  // Beckmann distribution function (D)
+float D = clamp(exponent / (UNITY_PI * m * m * pow(NdotH, 4)), 1e-4, 1e50); // Beckmann Distribution. Clamped to get rid of a visual artefact
 
 // Base Fresnel reflectance (F0) calculated from the refractive index
 float F0 = ((_RefractiveIndex - 1) * (_RefractiveIndex - 1)) / ((_RefractiveIndex + 1) * (_RefractiveIndex + 1));
