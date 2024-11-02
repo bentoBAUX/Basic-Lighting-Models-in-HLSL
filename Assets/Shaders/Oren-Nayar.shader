@@ -75,7 +75,7 @@ Shader "Lighting/Oren-Nayar"
 
                 float3 Lproj = normalize(l - n * NdotL);
                 float3 Vproj = normalize(v - n * NdotV + 1);
-                float cosPhi = dot(Lproj, Vproj);
+                float cosPhi = saturate(dot(Lproj, Vproj));
 
                 float alpha = max(theta_i, theta_r);
                 float beta = min(theta_i, theta_r);
@@ -88,7 +88,7 @@ Shader "Lighting/Oren-Nayar"
                 float3 L1 = _DiffuseColour * E0 * cos(theta_i) * (C1 + (C2 * cosPhi * tan(beta)) + (C3 * (1.0 - abs(cosPhi)) * tan((alpha + beta) / 2.0)));
                 float3 L2 = 0.17 * (_DiffuseColour * _DiffuseColour) * E0 * cos(theta_i) * (sigmaSqr / (sigmaSqr + 0.13)) * (1.0 - cosPhi * pow((2.0 * beta) / UNITY_PI, 2.0));
 
-                float3 L = (L1+L2);
+                float3 L = saturate(L1+L2);
 
                 float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, float3(0,1,0)).rgb;
                 fixed3 ambient = 0.5 * (UNITY_LIGHTMODEL_AMBIENT + _LightColor0 + skyboxColor);

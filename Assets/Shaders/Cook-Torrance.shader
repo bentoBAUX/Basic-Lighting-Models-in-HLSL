@@ -109,7 +109,7 @@ Shader "Lighting/Cook-Torrance"
                 float a = acos(NdotH);
                 float m = clamp(sigmaSqr, 0.01, 1);
                 float exponent = exp(-tan(a) * tan(a) / (m * m));
-                float D = clamp(exponent / (UNITY_PI * m * m * pow(NdotH, 4)), 0.01, 1e30);
+                float D = clamp(exponent / (UNITY_PI * m * m * pow(NdotH, 4)), 1e-4, 1e50); // Clamp to get rid of a visual artefact
 
                 float F0 = ((_RefractiveIndex - 1) * (_RefractiveIndex - 1)) / ((_RefractiveIndex + 1) * (_RefractiveIndex + 1));
                 float F = F0 + (1 - F0) * pow(1 - clamp(dot(v, h), 0, 1), 5);
