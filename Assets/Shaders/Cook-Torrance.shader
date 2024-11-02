@@ -101,7 +101,7 @@ Shader "Lighting/Cook-Torrance"
                 float3 L2 = 0.17 * (_DiffuseColour * _DiffuseColour) * E0 * cos(theta_i) * (sigmaSqr / (sigmaSqr + 0.13)) * (1.0 - cosPhi *
                     pow((2.0 * beta) / UNITY_PI, 2.0));
 
-                float3 L = (L1 + L2);
+                float3 L = saturate(L1+L2);
 
                 // Cook-Torrance: https://en.wikipedia.org/wiki/Specular_highlight#Cook–Torrance_model
 
