@@ -2,7 +2,9 @@
 
 This repository contains several basic lighting models implemented in Unity using HLSL (High-Level Shading Language).
 Each lighting model is explained with its corresponding mathematical formulation and a breakdown of how it's implemented
-in code.
+in code. Feel free to click on the image below to watch the demo video before we get started!
+<br/>
+[![Exploring Lighting Models](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Thumbnails/Thumbnail.jpg?raw=true)](https://www.youtube.com/watch?v=PEVGSzxCQBc)
 
 ## Table of Contents
 
@@ -21,7 +23,7 @@ in code.
 ## Overview
 
 This project demonstrates different lighting techniques used in real-time computer graphics. The models implemented
-cover a range from basic diffuse lighting like Lambertian and Phong Lighting to more advanced techniques like Oren-Nayar and Cook-Torrance.
+cover a range from simpler lighting techniques like Lambertian and Phong Lighting to the more advanced ones like Oren-Nayar and Cook-Torrance.
 
 All shaders are written in HLSL and designed to be used in Unity’s Built In Rendering Pipeline. Below is an overview of the
 implemented lighting models, along with the mathematical concepts and code snippets for each.
@@ -87,7 +89,18 @@ I_s = k_s * (r \cdot v)^s
 <br/>
 
 ```math
-C_r = (I_a + I_d + I_s) * C_s * I_l
+\text{ambient} = I_a * C_s
+```
+```math
+\text{diffuse} = I_d * C_s * I_l
+```
+```math
+\text{specular} = I_s * I_l
+```
+<br/>
+
+```math
+C_r = \text{ambient} + \text{diffuse} + \text{specular}
 ```
 
 Where:
@@ -116,15 +129,17 @@ half3 l = normalize(_WorldSpaceLightPos0.xyz);             // Get normalized lig
 half3 r = 2.0 * dot(n, l) * n - l;                         // Calculate reflection vector
 half3 v = normalize(_WorldSpaceCameraPos - worldPos);      // Get normalized view direction
 
-float Ia = _k.x;                                           // Ambient light intensity (_k.x = ambient coefficient)
-float Id = _k.y * saturate(dot(n, l));                     // Diffuse light intensity using Lambert's law
-float Is = _k.z * pow(saturate(dot(r, v)), _SpecularExponent); // Specular light intensity using Phong model
+float Ia = _k.x;                                        // Ambient intensity
+float Id = _k.y * saturate(dot(n, l));                  // Diffuse intensity using Lambert's law
+float Is = _k.z * pow(saturate(dot(r, v)), _SpecularExponent); // Specular intensity
 
-float3 ambient = Ia;                                       // Calculate ambient lighting
-float3 diffuse = Id * _LightColor0.rgb;                    // Calculate diffuse lighting
-float3 specular = Is * _LightColor0.rgb;                   // Calculate specular lighting
+float3 ambient = Ia * _DiffuseColour.rgb;               // Ambient term
+float3 diffuse = Id * _DiffuseColour.rgb * _LightColor0.rgb; // Diffuse term
+float3 specular = Is * _LightColor0.rgb;                // Specular term
 
-o.color = fixed4((ambient + diffuse + specular) * _DiffuseColour.rgb, 1.0); // Output final colour with full opacity
+float3 finalColor = ambient + diffuse + specular;       // Combine all lighting components
+
+o.color = fixed4(finalColor, 1.0);                      // Set the final output colour
 ```
 
 ### 3. Phong Lighting
@@ -212,7 +227,7 @@ Toon shading, influenced by Japanese anime and Western animation, uses stylised 
 
 *Smoothstep Diffuse and Specular*
 
-$\quad$ For the shader's signature distinction between highlights and shadows, smoothstep is applied to both diffuse and specular intensities:
+$\quad$ For the shader's signature distinction between highlights and shadows, *smoothstep* is applied to both diffuse and specular intensities. This helps create distinct light and dark bands with softer, more controlled transitions.  
 
 $$
 I_d = \text{smoothstep}(0.005, 0.01, I_d)
