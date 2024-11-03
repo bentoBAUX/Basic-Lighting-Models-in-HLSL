@@ -315,6 +315,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gouraud-Phong
       objectReference: {fileID: 0}
+    - target: {fileID: 2669199866070623933, guid: f91bbf007e3b91b49965b52daf644270, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2939839369441636013, guid: f91bbf007e3b91b49965b52daf644270, type: 3}
       propertyPath: m_text
       value: Gouraud-Phong
@@ -674,6 +678,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Oren-Nayar
       objectReference: {fileID: 0}
+    - target: {fileID: 2669199866070623933, guid: f91bbf007e3b91b49965b52daf644270, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2939839369441636013, guid: f91bbf007e3b91b49965b52daf644270, type: 3}
       propertyPath: m_text
       value: Oren-Nayar
@@ -762,6 +770,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lambert
       objectReference: {fileID: 0}
+    - target: {fileID: 2669199866070623933, guid: f91bbf007e3b91b49965b52daf644270, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2939839369441636013, guid: f91bbf007e3b91b49965b52daf644270, type: 3}
       propertyPath: m_text
       value: Lambertian
@@ -820,6 +832,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3213818107716955029, guid: f91bbf007e3b91b49965b52daf644270, type: 3}
       propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456050666216733296, guid: f91bbf007e3b91b49965b52daf644270, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8603294356248549131, guid: f91bbf007e3b91b49965b52daf644270, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -932,12 +952,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 986719e287155884a9660c08fdbd3713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 35
+  speed: 20
 --- !u!1001 &757188510
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -953,6 +973,10 @@ PrefabInstance:
     - target: {fileID: 2669199866070623933, guid: f91bbf007e3b91b49965b52daf644270, type: 3}
       propertyPath: m_Name
       value: Toon
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669199866070623933, guid: f91bbf007e3b91b49965b52daf644270, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2939839369441636013, guid: f91bbf007e3b91b49965b52daf644270, type: 3}
       propertyPath: m_text
@@ -1235,23 +1259,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   materialsList:
-  - material: {fileID: 253864366}
-    colorProperty: _DiffuseColour
-  - material: {fileID: 1368670989}
-    colorProperty: _DiffuseColour
-  - material: {fileID: 37864301}
-    colorProperty: _DiffuseColour
-  - material: {fileID: 1725360005}
-    colorProperty: _DiffuseColour
-  - material: {fileID: 1400564808}
-    colorProperty: _DiffuseColour
-  - material: {fileID: 183294252}
+  - material: {fileID: 3898737}
     colorProperty: _DiffuseColour
   - material: {fileID: 169834442}
     colorProperty: _DiffuseColour
+  - material: {fileID: 37864301}
+    colorProperty: _DiffuseColour
   - material: {fileID: 1938904520}
     colorProperty: _DiffuseColour
-  - material: {fileID: 3898737}
+  - material: {fileID: 1368670989}
+    colorProperty: _DiffuseColour
+  - material: {fileID: 183294252}
+    colorProperty: _DiffuseColour
+  - material: {fileID: 253864366}
+    colorProperty: _DiffuseColour
+  - material: {fileID: 1400564808}
+    colorProperty: _DiffuseColour
+  - material: {fileID: 1725360005}
     colorProperty: _DiffuseColour
   newColor: {r: 0.4830687, g: 0.83396226, b: 0.7111913, a: 1}
 --- !u!114 &963194231
@@ -1520,6 +1544,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flat Shading
       objectReference: {fileID: 0}
+    - target: {fileID: 2669199866070623933, guid: f91bbf007e3b91b49965b52daf644270, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2939839369441636013, guid: f91bbf007e3b91b49965b52daf644270, type: 3}
       propertyPath: m_text
       value: Flat
@@ -1603,6 +1631,10 @@ PrefabInstance:
     - target: {fileID: 2669199866070623933, guid: f91bbf007e3b91b49965b52daf644270, type: 3}
       propertyPath: m_Name
       value: Unity Default
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669199866070623933, guid: f91bbf007e3b91b49965b52daf644270, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2939839369441636013, guid: f91bbf007e3b91b49965b52daf644270, type: 3}
       propertyPath: m_text
@@ -1773,6 +1805,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Phong
       objectReference: {fileID: 0}
+    - target: {fileID: 2669199866070623933, guid: f91bbf007e3b91b49965b52daf644270, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2939839369441636013, guid: f91bbf007e3b91b49965b52daf644270, type: 3}
       propertyPath: m_text
       value: 'Phong
@@ -1940,6 +1976,10 @@ PrefabInstance:
     - target: {fileID: 2669199866070623933, guid: f91bbf007e3b91b49965b52daf644270, type: 3}
       propertyPath: m_Name
       value: Blinn-Phong
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669199866070623933, guid: f91bbf007e3b91b49965b52daf644270, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2939839369441636013, guid: f91bbf007e3b91b49965b52daf644270, type: 3}
       propertyPath: m_text
