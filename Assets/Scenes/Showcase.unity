@@ -932,12 +932,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 986719e287155884a9660c08fdbd3713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 35
 --- !u!1001 &757188510
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1237,21 +1237,21 @@ MonoBehaviour:
   materialsList:
   - material: {fileID: 253864366}
     colorProperty: _DiffuseColour
+  - material: {fileID: 1368670989}
+    colorProperty: _DiffuseColour
   - material: {fileID: 37864301}
+    colorProperty: _DiffuseColour
+  - material: {fileID: 1725360005}
     colorProperty: _DiffuseColour
   - material: {fileID: 1400564808}
     colorProperty: _DiffuseColour
-  - material: {fileID: 169834442}
-    colorProperty: _DiffuseColour
   - material: {fileID: 183294252}
     colorProperty: _DiffuseColour
-  - material: {fileID: 1725360005}
+  - material: {fileID: 169834442}
     colorProperty: _DiffuseColour
   - material: {fileID: 1938904520}
     colorProperty: _DiffuseColour
   - material: {fileID: 3898737}
-    colorProperty: _DiffuseColour
-  - material: {fileID: 1368670989}
     colorProperty: _DiffuseColour
   newColor: {r: 0.4830687, g: 0.83396226, b: 0.7111913, a: 1}
 --- !u!114 &963194231

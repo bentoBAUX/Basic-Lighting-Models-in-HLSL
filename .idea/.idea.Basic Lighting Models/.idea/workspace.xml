@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63492014-af44-41f9-948c-96f3ed9e5388" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Basic Lighting Models/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Basic Lighting Models/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Shaders/Cook-Torrance.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shaders/Cook-Torrance.shader" afterDir="false" />
-    </list>
+    <list default="true" id="63492014-af44-41f9-948c-96f3ed9e5388" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -132,6 +129,7 @@
       <workItem from="1730069713823" duration="472000" />
       <workItem from="1730489976188" duration="712000" />
       <workItem from="1730584971511" duration="2585000" />
+      <workItem from="1730590077364" duration="150000" />
     </task>
     <servers />
   </component>
