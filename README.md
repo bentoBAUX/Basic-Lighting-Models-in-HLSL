@@ -89,7 +89,18 @@ I_s = k_s * (r \cdot v)^s
 <br/>
 
 ```math
-C_r = (I_a + I_d + I_s) * C_s * I_l
+\text{ambient} = I_a * C_s
+```
+```math
+\text{diffuse} = I_d * C_s * I_l
+```
+```math
+\text{specular} = I_s * I_l
+```
+<br/>
+
+```math
+C_r = \text{ambient} + \text{diffuse} + \text{specular}
 ```
 
 Where:
@@ -118,15 +129,17 @@ half3 l = normalize(_WorldSpaceLightPos0.xyz);             // Get normalized lig
 half3 r = 2.0 * dot(n, l) * n - l;                         // Calculate reflection vector
 half3 v = normalize(_WorldSpaceCameraPos - worldPos);      // Get normalized view direction
 
-float Ia = _k.x;                                           // Ambient light intensity (_k.x = ambient coefficient)
-float Id = _k.y * saturate(dot(n, l));                     // Diffuse light intensity using Lambert's law
-float Is = _k.z * pow(saturate(dot(r, v)), _SpecularExponent); // Specular light intensity using Phong model
+float Ia = _k.x;                                        // Ambient intensity
+float Id = _k.y * saturate(dot(n, l));                  // Diffuse intensity using Lambert's law
+float Is = _k.z * pow(saturate(dot(r, v)), _SpecularExponent); // Specular intensity
 
-float3 ambient = Ia;                                       // Calculate ambient lighting
-float3 diffuse = Id * _LightColor0.rgb;                    // Calculate diffuse lighting
-float3 specular = Is * _LightColor0.rgb;                   // Calculate specular lighting
+float3 ambient = Ia * _DiffuseColour.rgb;               // Ambient term
+float3 diffuse = Id * _DiffuseColour.rgb * _LightColor0.rgb; // Diffuse term
+float3 specular = Is * _LightColor0.rgb;                // Specular term
 
-o.color = fixed4((ambient + diffuse + specular) * _DiffuseColour.rgb, 1.0); // Output final colour with full opacity
+float3 finalColor = ambient + diffuse + specular;       // Combine all lighting components
+
+o.color = fixed4(finalColor, 1.0);                      // Set the final output colour
 ```
 
 ### 3. Phong Lighting
