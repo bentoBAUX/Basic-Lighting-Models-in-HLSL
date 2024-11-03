@@ -23,7 +23,7 @@ in code. Feel free to click on the image below to watch the demo video before we
 ## Overview
 
 This project demonstrates different lighting techniques used in real-time computer graphics. The models implemented
-cover a range from basic diffuse lighting like Lambertian and Phong Lighting to more advanced techniques like Oren-Nayar and Cook-Torrance.
+cover a range from simpler lighting techniques like Lambertian and Phong Lighting to the more advanced ones like Oren-Nayar and Cook-Torrance.
 
 All shaders are written in HLSL and designed to be used in Unity’s Built In Rendering Pipeline. Below is an overview of the
 implemented lighting models, along with the mathematical concepts and code snippets for each.
