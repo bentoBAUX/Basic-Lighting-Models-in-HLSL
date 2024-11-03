@@ -33,7 +33,7 @@ implemented lighting models, along with the mathematical concepts and code snipp
 ### 1. Lambert Lighting
 
 #### Overview
-
+![Lambert](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Thumbnails/Close%20ups/Lambert.jpg)
 The Lambertian lighting, named after Johann Heinrich Lambert, is the most fundamental model for simulating diffuse reflection in computer graphics. It assumes that light is scattered uniformly in all directions from each point on the surface, which makes it ideal for modelling matte materials such as unpolished surfaces like chalk or clay. The model’s simplicity lies in the fact that the intensity of reflected light is determined solely by the cosine of the angle between the surface normal and the direction of incoming light, a principle known as Lambert’s Cosine Law. 
 
 In this example, the lighting will be calculated in the vertex shader.
@@ -69,7 +69,7 @@ finalColour = Id * _DiffuseColour * _LightColor0;   // Multiplying I with the su
 ```
 ---
 ### 2. Gouraud-Phong Lighting
-
+![Gouraud](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Thumbnails/Close%20ups/Gouraud.jpg)
 #### Overview
 
 Gouraud shading, named after the French computer scientist Henri Gouraud, enhances Lambertian lighting by incorporating specular and ambient terms from Phong lighting. However unlike Phong Lighting, lighting calculations are performed at the vertices in the vertex shader, and the resulting colour values are interpolated across the surface of the polygon during rasterisation, which happens in the fragment shader.
@@ -143,7 +143,7 @@ o.color = fixed4(finalColor, 1.0);                      // Set the final output 
 ```
 
 ### 3. Phong Lighting
-
+![Phong](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Thumbnails/Close%20ups/Phong.jpg)
 #### Overview
 Phong lighting builds upon the same mathematical principles as Gouraud-Phong lighting but differs in its implementation within shaders. While Gouraud shading performs the lighting calculation per vertex in the vertex shader and then interpolates the resulting colours across a triangle, Phong shading interpolates **surface normals** across the triangle and performs the lighting calculations per pixel in the fragment shader. This allows for a smoother and more detailed lighting effecs, paricularly for specular highlights and shiny surfaces.
 
@@ -159,7 +159,7 @@ By performing per-pixel lighting, Phong shading offers a visually more realistic
 ```
 
 ### 4. Blinn-Phong Lighting
-
+![Blinn Phong](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Thumbnails/Close%20ups/Blinn%20Phong.jpg)
 #### Overview
 Blinn-Phong shading is a refined version of Phong shading that optimises the calculation of specular highlights. Instead of using the reflection vector like Phong shading, it calculates a halfway vector, which is the vector between the light direction and the view direction. This makes the specular calculation more efficient, reducing the computational cost while maintaining similar visual quality, especially for smooth surfaces. 
 
@@ -218,7 +218,7 @@ half3 n = normalize(worldNormal);                                        // Ensu
 ```
 
 ### 6. Toon Shading
-
+![Toon](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Thumbnails/Close%20ups/Toon.jpg)
 #### Overview
 Toon shading, influenced by Japanese anime and Western animation, uses stylised lighting to give 3D graphics a 2D, hand-drawn look. The math behind this shader builds, too, on the Blinn-Phong lighting model, with smoothstep functions to create clear yet smooth lighting bands. For additional lights (directional, point, and spot), I used an additive approach to allow multiple sources to interact naturally without heavy performance costs. For the extra stylised look, I used a Fresnel-based approach for rim lighting which I learned from [here](https://roystan.net/articles/toon-shader/), where light wraps around the edges of an object based on the viewing angle, creating a subtle highlight that enhances shape definition. Combined with textures, normal maps, and outlines for clear borders, this setup brings a polished comic-book feel. The full repository will be available soon.
 
@@ -285,7 +285,7 @@ half3 lighting = ambient + diffuse + specular + rim;                // Combine d
 ```
 
 ### 7. Oren-Nayar
-
+![Oren Nayar](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Thumbnails/Close%20ups/Oren%20Nayar.jpg)
 #### Overview
 The Oren-Nayar model is a reflection model developed by Michael Oren and Shree K. Nayar to extend simple Lambertian shading for rough, diffuse surfaces. Unlike Lambertian shading, which assumes light scatters evenly in all directions, Oren-Nayar calculates how surface roughness affects light scattering, using parameters like the viewer's angle, light direction, and surface roughness, σ. This model captures realistic diffuse behaviour, especially for materials like cloth or plaster, where surface microstructures cause directional variation in brightness. By introducing these variables, Oren-Nayar enables more realistic shading in computer graphics for non-smooth, matte surfaces. My implementation directly mirrors the standard calculations outlined on [Wikipedia](https://en.wikipedia.org/wiki/Oren–Nayar_reflectance_model), using the same parameters and cosine terms to enhance realism in shading effects for rough, matte surfaces.
 
@@ -371,7 +371,7 @@ float3 L = saturate(L1+L2); // Clamped between 0 and 1 to prevent lighting value
 ```
 
 ### 8. Cook-Torrance
-
+![Cook Torrance](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Thumbnails/Close%20ups/Cook%20Torrance.jpg)
 #### Overview
 The Cook-Torrance model is a reflection model developed by Robert Cook and Kenneth Torrance in 1982, designed to simulate specular reflection on rough, shiny surfaces with a level of realism that surpasses simpler models like Phong or Blinn-Phong. While those earlier models treat surfaces as smooth, Cook-Torrance assumes a surface is made up of countless microscopic facets, each acting as a tiny mirror. This model calculates specular reflection based on factors like viewing angle, light direction, and a roughness parameter, similar to Oren-Nayar but tailored to specular highlights.
 
