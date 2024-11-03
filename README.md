@@ -193,7 +193,7 @@ float Is = _k.z * pow(saturate(dot(h, n)), _SpecularExponent); // Calculate the 
 ```
 
 ### 5. Flat Shading
-
+![Flat](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Thumbnails/Close%20ups/Flat.jpg)
 #### Overview
 Flat shading with Blinn-Phong lighting works by assigning a single normal to an entire triangle, rather than per vertex. In this case, the normal is calculated using the cross product of the screen-space derivatives of the triangle’s world positions, ensuring it represents the entire face. This normal is then used in the Blinn-Phong lighting model to calculate the lighting for all pixels within the triangle. Since the same normal is applied across the entire surface, the specular highlights and shading appear flat and uniform for each triangle, giving the model a faceted look while still using Blinn-Phong's lighting principles.
 
