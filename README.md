@@ -4,7 +4,7 @@ This repository contains several basic lighting models implemented in Unity usin
 Each lighting model is explained with its corresponding mathematical formulation and a breakdown of how it's implemented
 in code. Feel free to click on the image below to watch the demo video before we get started!
 <br/>
-[![Exploring Lighting Models](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Thumbnails/Thumbnail.jpg?raw=true)](https://www.youtube.com/watch?v=PEVGSzxCQBc)
+[![Exploring Lighting Models](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Thumbnails/Thumbnail%20w%20Text.jpg?raw=true)](https://www.youtube.com/watch?v=PEVGSzxCQBc)
 
 ## Table of Contents
 
