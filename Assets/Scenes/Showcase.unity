@@ -570,7 +570,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Toon 1 (Instance)
-  m_Shader: {fileID: 4800000, guid: 273c8e6b4a2c4836b88f08f72f15cd57, type: 3}
+  m_Shader: {fileID: 4800000, guid: 5379a8663a03d434283185325407be27, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -607,6 +607,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _EmissiveTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -634,6 +638,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _Emissive: 0
     - _FresnelPower: 0.58
     - _GlossMapScale: 1
     - _Glossiness: 34.82
@@ -651,6 +656,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
+    - _UseRim: 0
     - _UseTransparent: 0
     - _ZWrite: 1
     - _ambient: 0
@@ -659,6 +665,8 @@ Material:
     - _Color: {r: 0.8490566, g: 0.5238519, b: 0.5238519, a: 1}
     - _DiffuseColour: {r: 0.4830687, g: 0.83396226, b: 0.7111913, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissiveColour: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColour: {r: 1, g: 1, b: 1, a: 1}
     - _k: {r: 1, g: 1, b: 0.8, a: 1}
     - _rho: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
@@ -1259,23 +1267,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   materialsList:
-  - material: {fileID: 3898737}
-    colorProperty: _DiffuseColour
-  - material: {fileID: 169834442}
-    colorProperty: _DiffuseColour
-  - material: {fileID: 37864301}
+  - material: {fileID: 1725360005}
     colorProperty: _DiffuseColour
   - material: {fileID: 1938904520}
     colorProperty: _DiffuseColour
   - material: {fileID: 1368670989}
     colorProperty: _DiffuseColour
-  - material: {fileID: 183294252}
+  - material: {fileID: 1400564808}
     colorProperty: _DiffuseColour
   - material: {fileID: 253864366}
     colorProperty: _DiffuseColour
-  - material: {fileID: 1400564808}
+  - material: {fileID: 169834442}
     colorProperty: _DiffuseColour
-  - material: {fileID: 1725360005}
+  - material: {fileID: 3898737}
+    colorProperty: _DiffuseColour
+  - material: {fileID: 183294252}
+    colorProperty: _DiffuseColour
+  - material: {fileID: 37864301}
     colorProperty: _DiffuseColour
   newColor: {r: 0.4830687, g: 0.83396226, b: 0.7111913, a: 1}
 --- !u!114 &963194231
