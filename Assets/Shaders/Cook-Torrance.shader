@@ -117,7 +117,7 @@ Shader "Lighting/Cook-Torrance"
                 float specular = ((D * G * F) / (4 * dot(n, l)) * dot(n, v)) * _LightColor0;
 
                 float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, float3(0,1,0)).rgb;
-                fixed3 ambient = 0.5 * (UNITY_LIGHTMODEL_AMBIENT + _LightColor0 + skyboxColor);
+                fixed3 ambient = 0.1 * (UNITY_LIGHTMODEL_AMBIENT + _LightColor0 + skyboxColor);
 
                 return float4(ambient + lerp(L, specular, _Metallic), 1.0);
             }

@@ -91,7 +91,7 @@ Shader "Lighting/Oren-Nayar"
                 float3 L = saturate(L1+L2);
 
                 float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, float3(0,1,0)).rgb;
-                fixed3 ambient = 0.5 * (UNITY_LIGHTMODEL_AMBIENT + _LightColor0 + skyboxColor);
+                fixed3 ambient = 0.1 * (UNITY_LIGHTMODEL_AMBIENT + _LightColor0 + skyboxColor);
 
                 return fixed4(L + ambient, 1.0);
             }

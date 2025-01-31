@@ -542,11 +542,12 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Metallic: 0.503
+    - _Metallic: 0.27
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _RefractiveIndex: 2.5
+    - _Roughness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -554,8 +555,9 @@ Material:
     - _ZWrite: 1
     - _ambient: 0
     - _s: 0.6
-    - _sigma: 0.382
+    - _sigma: 0.296
     m_Colors:
+    - _Albedo: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DiffuseColour: {r: 0.4830687, g: 0.83396226, b: 0.7111913, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
@@ -1267,21 +1269,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   materialsList:
-  - material: {fileID: 1725360005}
-    colorProperty: _DiffuseColour
-  - material: {fileID: 1938904520}
+  - material: {fileID: 1400564808}
     colorProperty: _DiffuseColour
   - material: {fileID: 1368670989}
     colorProperty: _DiffuseColour
-  - material: {fileID: 1400564808}
+  - material: {fileID: 1938904520}
     colorProperty: _DiffuseColour
   - material: {fileID: 253864366}
     colorProperty: _DiffuseColour
   - material: {fileID: 169834442}
     colorProperty: _DiffuseColour
+  - material: {fileID: 183294252}
+    colorProperty: _DiffuseColour
   - material: {fileID: 3898737}
     colorProperty: _DiffuseColour
-  - material: {fileID: 183294252}
+  - material: {fileID: 1725360005}
     colorProperty: _DiffuseColour
   - material: {fileID: 37864301}
     colorProperty: _DiffuseColour
