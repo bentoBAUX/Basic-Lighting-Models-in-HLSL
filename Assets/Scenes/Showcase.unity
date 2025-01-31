@@ -1271,19 +1271,19 @@ MonoBehaviour:
   materialsList:
   - material: {fileID: 1400564808}
     colorProperty: _DiffuseColour
-  - material: {fileID: 1368670989}
-    colorProperty: _DiffuseColour
-  - material: {fileID: 1938904520}
+  - material: {fileID: 1725360005}
     colorProperty: _DiffuseColour
   - material: {fileID: 253864366}
     colorProperty: _DiffuseColour
-  - material: {fileID: 169834442}
+  - material: {fileID: 1938904520}
     colorProperty: _DiffuseColour
   - material: {fileID: 183294252}
     colorProperty: _DiffuseColour
+  - material: {fileID: 169834442}
+    colorProperty: _DiffuseColour
   - material: {fileID: 3898737}
     colorProperty: _DiffuseColour
-  - material: {fileID: 1725360005}
+  - material: {fileID: 1368670989}
     colorProperty: _DiffuseColour
   - material: {fileID: 37864301}
     colorProperty: _DiffuseColour
