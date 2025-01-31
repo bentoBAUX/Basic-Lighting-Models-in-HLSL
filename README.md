@@ -30,7 +30,7 @@ implemented lighting models, along with the mathematical concepts and code snipp
 
 ## Implemented Lighting Models
 
-### 1. [Lambert Lighting](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Shaders/Lambert.shader)
+### [1. Lambert Lighting](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Shaders/Lambert.shader)
 
 #### Overview
 ![Lambert](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Thumbnails/Close%20ups/Lambert.jpg)
