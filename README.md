@@ -30,7 +30,7 @@ implemented lighting models, along with the mathematical concepts and code snipp
 
 ## Implemented Lighting Models
 
-### 1. Lambert Lighting
+### [1. Lambert Lighting](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Shaders/Lambert.shader)
 
 #### Overview
 ![Lambert](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Thumbnails/Close%20ups/Lambert.jpg)
@@ -68,7 +68,7 @@ float Id = kD * saturate(dot(n, l));                // saturate() to clamp dot p
 finalColour = Id * _DiffuseColour * _LightColor0;   // Multiplying I with the surface's colour and the light's colour to get the final observed colour.
 ```
 ---
-### 2. Gouraud-Phong Lighting
+### [2. Gouraud-Phong Lighting](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Shaders/Gouraud-Phong.shader)
 ![Gouraud](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Thumbnails/Close%20ups/Gouraud.jpg)
 #### Overview
 
@@ -142,7 +142,7 @@ float3 finalColor = ambient + diffuse + specular;       // Combine all lighting 
 o.color = fixed4(finalColor, 1.0);                      // Set the final output colour
 ```
 
-### 3. Phong Lighting
+### [3. Phong Lighting](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Shaders/Phong.shader)
 ![Phong](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Thumbnails/Close%20ups/Phong.jpg)
 #### Overview
 Phong lighting builds upon the same mathematical principles as Gouraud-Phong lighting but differs in its implementation within shaders. While Gouraud shading performs the lighting calculation per vertex in the vertex shader and then interpolates the resulting colours across a triangle, Phong shading interpolates **surface normals** across the triangle and performs the lighting calculations per pixel in the fragment shader. This allows for a smoother and more detailed lighting effecs, paricularly for specular highlights and shiny surfaces.
@@ -158,7 +158,7 @@ By performing per-pixel lighting, Phong shading offers a visually more realistic
 // Same as in Gouraud shading but calculations are performed in the fragment shader.
 ```
 
-### 4. Blinn-Phong Lighting
+### [4. Blinn-Phong Lighting](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Shaders/Blinn-Phong.shader)
 ![Blinn Phong](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Thumbnails/Close%20ups/Blinn%20Phong.jpg)
 #### Overview
 Blinn-Phong shading is a refined version of Phong shading that optimises the calculation of specular highlights. Instead of using the reflection vector like Phong shading, it calculates a halfway vector, which is the vector between the light direction and the view direction. This makes the specular calculation more efficient, reducing the computational cost while maintaining similar visual quality, especially for smooth surfaces. 
@@ -192,7 +192,7 @@ float Is = _k.z * pow(saturate(dot(h, n)), _SpecularExponent); // Calculate the 
 ...
 ```
 
-### 5. Flat Shading
+### [5. Flat Shading](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Shaders/Flat%20Shading.shader)
 ![Flat](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Thumbnails/Close%20ups/Flat.jpg)
 #### Overview
 Flat shading with Blinn-Phong lighting works by assigning a single normal to an entire triangle, rather than per vertex. In this case, the normal is calculated using the cross product of the screen-space derivatives of the triangle’s world positions, ensuring it represents the entire face. This normal is then used in the Blinn-Phong lighting model to calculate the lighting for all pixels within the triangle. Since the same normal is applied across the entire surface, the specular highlights and shading appear flat and uniform for each triangle, giving the model a faceted look while still using Blinn-Phong's lighting principles.
@@ -217,7 +217,7 @@ half3 n = normalize(worldNormal);                                        // Ensu
 ...
 ```
 
-### 6. Toon Shading
+### [6. Toon Shading](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Shaders/Toon.shader)
 ![Toon](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Thumbnails/Close%20ups/Toon.jpg)
 #### Overview
 Toon shading, influenced by Japanese anime and Western animation, uses stylised lighting to give 3D graphics a 2D, hand-drawn look. The math behind this shader builds, too, on the Blinn-Phong lighting model, with smoothstep functions to create clear yet smooth lighting bands. For additional lights (directional, point, and spot), I used an additive approach to allow multiple sources to interact naturally without heavy performance costs. For the extra stylised look, I used a Fresnel-based approach for rim lighting which I learned from [here](https://roystan.net/articles/toon-shader/), where light wraps around the edges of an object based on the viewing angle, creating a subtle highlight that enhances shape definition. Combined with textures, emissive and normal maps, this setup brings a polished comic-book feel. You may also find the simpler version of this shader [here](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Shaders/Toon-Simple.shader).
@@ -284,7 +284,7 @@ half3 lighting = ambient + diffuse + specular + rim;                // Combine d
 ...
 ```
 
-### 7. Oren-Nayar
+### [7. Oren-Nayar](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Shaders/Oren-Nayar.shader)
 ![Oren Nayar](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Thumbnails/Close%20ups/Oren%20Nayar.jpg)
 #### Overview
 The Oren-Nayar model is a reflection model developed by Michael Oren and Shree K. Nayar to extend simple Lambertian shading for rough, diffuse surfaces. Unlike Lambertian shading, which assumes light scatters evenly in all directions, Oren-Nayar calculates how surface roughness affects light scattering, using parameters like the viewer's angle, light direction, and surface roughness, σ. This model captures realistic diffuse behaviour, especially for materials like cloth or plaster, where surface microstructures cause directional variation in brightness. By introducing these variables, Oren-Nayar enables more realistic shading in computer graphics for non-smooth, matte surfaces. My implementation directly mirrors the standard calculations outlined on [Wikipedia](https://en.wikipedia.org/wiki/Oren–Nayar_reflectance_model), using the same parameters and cosine terms to enhance realism in shading effects for rough, matte surfaces.
@@ -370,7 +370,7 @@ float3 L = saturate(L1+L2); // Clamped between 0 and 1 to prevent lighting value
 ...
 ```
 
-### 8. Cook-Torrance
+### [8. Cook-Torrance](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Shaders/Blinn-Phong.shader)
 ![Cook Torrance](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Thumbnails/Close%20ups/Cook%20Torrance.jpg)
 #### Overview
 The Cook-Torrance model is a reflection model developed by Robert Cook and Kenneth Torrance in 1982, designed to simulate specular reflection on rough, shiny surfaces with a level of realism that surpasses simpler models like Phong or Blinn-Phong. While those earlier models treat surfaces as smooth, Cook-Torrance assumes a surface is made up of countless microscopic facets, each acting as a tiny mirror. This model calculates specular reflection based on factors like viewing angle, light direction, and a roughness parameter, similar to Oren-Nayar but tailored to specular highlights.
