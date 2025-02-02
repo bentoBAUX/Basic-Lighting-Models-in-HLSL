@@ -59,11 +59,10 @@ Shader "Lighting/Toon"
                 "LightMode" = "ShadowCaster" // Marks this pass for shadow map rendering
             }
 
-            Cull Off  // Disable back-face culling to ensure shadows from both sides of an object
+            Cull Off // Disable back-face culling to ensure shadows from both sides of an object
             ZWrite On // Enable depth writing to store depth information in the shadow map
 
             HLSLPROGRAM
-
             // Include Unity shader libraries
             #include "UnityCG.cginc"
 
@@ -77,22 +76,22 @@ Shader "Lighting/Toon"
             // Structure defining the vertex data (input)
             struct appdata
             {
-                half4 vertex : POSITION;  // Object-space vertex position
-                half3 normal : NORMAL;    // Normal vector (unused in this pass)
-                half2 uv : TEXCOORD0;     // UV coordinates for texture sampling
-                half4 tangent : TANGENT;  // Tangent vector (unused in this pass)
+                half4 vertex : POSITION; // Object-space vertex position
+                half3 normal : NORMAL; // Normal vector (unused in this pass)
+                half2 uv : TEXCOORD0; // UV coordinates for texture sampling
+                half4 tangent : TANGENT; // Tangent vector (unused in this pass)
             };
 
             // Structure defining the interpolated data passed to the fragment shader
             struct v2f
             {
                 float2 uv_MainTex : TEXCOORD0; // UV coordinates for albedo texture
-                float4 pos : SV_POSITION;      // Clip-space position for depth rendering
+                float4 pos : SV_POSITION; // Clip-space position for depth rendering
             };
 
             // ===== Shader Properties (Uniforms) =====
-            sampler2D _MainTex;   // Main texture (for alpha testing)
-            float _AlphaCutoff;   // Alpha threshold for transparency clipping
+            sampler2D _MainTex; // Main texture (for alpha testing)
+            float _AlphaCutoff; // Alpha threshold for transparency clipping
 
             v2f vertShadow(appdata v)
             {
@@ -118,12 +117,11 @@ Shader "Lighting/Toon"
                 // Shadow map does not require color output, return zero
                 return 0;
             }
-
             ENDHLSL
         }
 
 
-         Pass
+        Pass
         {
             // This pass handles the base lighting for the MAIN directional light.
             // It includes diffuse, specular, rim, and emissive effects.
@@ -135,11 +133,10 @@ Shader "Lighting/Toon"
                 "LightMode" = "ForwardBase" // Marks this as the base pass for directional lighting
             }
 
-            Cull Off                             // Disable back-face culling to ensure lighting applies to both sides
-            Blend SrcAlpha OneMinusSrcAlpha      // Alpha blending for transparency support
+            Cull Off // Disable back-face culling to ensure lighting applies to both sides
+            Blend SrcAlpha OneMinusSrcAlpha // Alpha blending for transparency support
 
             HLSLPROGRAM
-
             // Shader entry points
             #pragma vertex vert
             #pragma fragment frag
@@ -163,11 +160,11 @@ Shader "Lighting/Toon"
 
             // ===== Shader Properties (Uniforms) =====
 
-            uniform half4 _DiffuseColour;  // Base diffuse colour multiplier
+            uniform half4 _DiffuseColour; // Base diffuse colour multiplier
 
             // Albedo (diffuse texture)
             uniform sampler2D _MainTex;
-            uniform half4 _MainTex_ST;  // Texture scale and offset
+            uniform half4 _MainTex_ST; // Texture scale and offset
 
             // Emissive color and texture
             uniform half4 _EmissiveColour;
@@ -179,8 +176,8 @@ Shader "Lighting/Toon"
 
             // Normal map settings
             uniform sampler2D _Normal;
-            uniform half4 _Normal_ST;  // Texture scale and offset
-            uniform half _NormalStrength;  // Normal map strength multiplier
+            uniform half4 _Normal_ST; // Texture scale and offset
+            uniform half _NormalStrength; // Normal map strength multiplier
 
             // Lighting coefficients (Ambient, Diffuse, Specular)
             uniform half3 _k;
@@ -199,23 +196,23 @@ Shader "Lighting/Toon"
             // Structure defining the vertex data (input)
             struct appdata
             {
-                half4 vertex: POSITION;         // Vertex position
-                half3 normal: NORMAL;           // Vertex normal
-                half2 uv : TEXCOORD0;           // UV coordinates for textures
-                half4 tangent : TANGENT;        // Tangent vector for normal mapping
+                half4 vertex: POSITION; // Vertex position
+                half3 normal: NORMAL; // Vertex normal
+                half2 uv : TEXCOORD0; // UV coordinates for textures
+                half4 tangent : TANGENT; // Tangent vector for normal mapping
             };
 
             // Structure defining the interpolated data passed to the fragment shader
             struct v2f
             {
-                half4 pos: SV_POSITION;         // Clip-space position
-                half2 uv_MainTex : TEXCOORD0;   // UV coordinates for albedo texture
-                half2 uv_Normal : TEXCOORD1;    // UV coordinates for normal map
-                half2 uv_Emissive : TEXCOORD2;  // UV coordinates for emissive map
-                half3 worldPos: TEXCOORD3;      // World-space position of the fragment
-                half3x3 TBN : TEXCOORD4;        // Tangent-to-world-space matrix for normal mapping
-                SHADOW_COORDS(7)                // Shadow coordinates
-                UNITY_FOG_COORDS(8)             // Fog coordinates
+                half4 pos: SV_POSITION; // Clip-space position
+                half2 uv_MainTex : TEXCOORD0; // UV coordinates for albedo texture
+                half2 uv_Normal : TEXCOORD1; // UV coordinates for normal map
+                half2 uv_Emissive : TEXCOORD2; // UV coordinates for emissive map
+                half3 worldPos: TEXCOORD3; // World-space position of the fragment
+                half3x3 TBN : TEXCOORD4; // Tangent-to-world-space matrix for normal mapping
+                SHADOW_COORDS(7) // Shadow coordinates
+                UNITY_FOG_COORDS(8) // Fog coordinates
             };
 
             v2f vert(appdata v)
@@ -292,8 +289,8 @@ Shader "Lighting/Toon"
                 float lightIntensity = saturate(NdotL * shadow / 0.001);
 
                 // Blinn-Phong Lighting Model
-                fixed Ia = _k.x;    // Ambient term
-                fixed Id = _k.y * lightIntensity;   // Diffuse term
+                fixed Ia = _k.x; // Ambient term
+                fixed Id = _k.y * lightIntensity; // Diffuse term
 
                 #ifdef SPECULAR
                 // Compute specular reflection intensity
@@ -307,7 +304,7 @@ Shader "Lighting/Toon"
                 half3 skyboxColour = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, float3(0,1,0)).rgb;
 
                 // Compute ambient, diffuse, specular contributions.
-                half3 ambient = Ia * c * (UNITY_LIGHTMODEL_AMBIENT + skyboxColour * 0.2);
+                half3 ambient = Ia * _DiffuseColour.rgb * ShadeSH9(float4(n, 1)); // Use spherical harmonics (SH) to approximate indirect ambient lighting from the environment.
                 half3 diffuse = Id * c * _LightColor0.rgb * shadow;
                 half3 specular = Is * _LightColor0.rgb * shadow;
 
@@ -350,13 +347,12 @@ Shader "Lighting/Toon"
             Name "ForwardAdd"
             Tags
             {
-                "LightMode" = "ForwardAdd"  // Marks this as a pass for additive lighting
+                "LightMode" = "ForwardAdd" // Marks this as a pass for additive lighting
             }
-            Cull Off        // Disables back-face culling to ensure proper lighting on both sides
-            Blend One One   // Additive blending mode (adds this pass's lighting to the previous result)
+            Cull Off // Disables back-face culling to ensure proper lighting on both sides
+            Blend One One // Additive blending mode (adds this pass's lighting to the previous result)
 
             HLSLPROGRAM
-
             // Shader entry points
             #pragma vertex vertAdd
             #pragma fragment fragAdd
@@ -375,19 +371,19 @@ Shader "Lighting/Toon"
 
             // ===== Shader Properties (Uniforms) =====
 
-            uniform half4 _DiffuseColour;   // Base diffuse colour multiplier
+            uniform half4 _DiffuseColour; // Base diffuse colour multiplier
 
             // Albedo (diffuse texture)
             uniform sampler2D _MainTex;
-            uniform half4 _MainTex_ST;  // Texture scale and offset
+            uniform half4 _MainTex_ST; // Texture scale and offset
 
             // Transparency settings
             uniform half _AlphaCutoff;
 
             // Normal map settings
             uniform half4 _Normal_ST;
-            uniform sampler2D _Normal;  // Texture scale and offset
-            uniform half _NormalStrength;   // Normal map strength multiplier
+            uniform sampler2D _Normal; // Texture scale and offset
+            uniform half _NormalStrength; // Normal map strength multiplier
 
             // Lighting coefficients (Ambient, Diffuse, Specular)
             uniform half3 _k;
@@ -406,23 +402,23 @@ Shader "Lighting/Toon"
             // Structure defining the vertex data (input)
             struct appdata
             {
-                half4 vertex: POSITION;     // Vertex position
-                half3 normal: NORMAL;       // Vertex normal
-                half2 uv : TEXCOORD0;       // UV coordinates for textures
-                half4 tangent : TANGENT;    // Tangent vector for normal mapping
+                half4 vertex: POSITION; // Vertex position
+                half3 normal: NORMAL; // Vertex normal
+                half2 uv : TEXCOORD0; // UV coordinates for textures
+                half4 tangent : TANGENT; // Tangent vector for normal mapping
             };
 
             // Structure defining the interpolated data passed to the fragment shader
             struct v2f
             {
-                half4 pos : SV_POSITION;      // Clip-space position
+                half4 pos : SV_POSITION; // Clip-space position
                 half2 uv_MainTex : TEXCOORD0; // UV coordinates for albedo texture
-                half2 uv_Normal : TEXCOORD1;  // UV coordinates for normal map
-                half3 worldPos : TEXCOORD2;   // World-space position of the fragment
-                half3x3 TBN : TEXCOORD3;      // Tangent-to-world-space matrix for normal mapping
-                UNITY_FOG_COORDS(6)           // Fog coordinates
-                float3 lightDir : TEXCOORD7;  // Light direction vector
-                LIGHTING_COORDS(8, 9)         // Stores light attenuation data for point/spot lights
+                half2 uv_Normal : TEXCOORD1; // UV coordinates for normal map
+                half3 worldPos : TEXCOORD2; // World-space position of the fragment
+                half3x3 TBN : TEXCOORD3; // Tangent-to-world-space matrix for normal mapping
+                UNITY_FOG_COORDS(6) // Fog coordinates
+                float3 lightDir : TEXCOORD7; // Light direction vector
+                LIGHTING_COORDS(8, 9) // Stores light attenuation data for point/spot lights
             };
 
             v2f vertAdd(appdata v)
@@ -511,7 +507,7 @@ Shader "Lighting/Toon"
                 float lightIntensity = saturate(NdotL * shadow / 0.001);
 
                 // Blinn-Phong Lighting Model
-                fixed Id = _k.y * lightIntensity;   // Diffuse term
+                fixed Id = _k.y * lightIntensity; // Diffuse term
 
                 #ifdef SPECULAR
                 // Compute specular reflection intensity

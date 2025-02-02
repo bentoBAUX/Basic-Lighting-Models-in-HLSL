@@ -89,7 +89,7 @@ Shader "Lighting/Cook-Torrance"
                 // Oren-Nayar: https://en.wikipedia.org/wiki/Oren–Nayar_reflectance_model
 
                 float C1 = 1 - 0.5 * (sigmaSqr / (sigmaSqr + 0.33));
-                float C2 = cosPhi >= 0? 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * sin(alpha): 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * (sin(alpha) - pow((2.0 * beta) / UNITY_PI, 3.0));
+                float C2 = cosPhi >= 0 ? 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * sin(alpha) : 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * (sin(alpha) - pow((2.0 * beta) / UNITY_PI, 3.0));
                 float C3 = 0.125 * (sigmaSqr / (sigmaSqr + 0.09)) * pow((4.0 * alpha * beta) / (UNITY_PI * UNITY_PI), 2);
 
                 float3 L1 = _DiffuseColour * E0 * cos(theta_i) * (C1 + (C2 * cosPhi * tan(beta)) + (C3 * (1.0 - abs(cosPhi)) *
@@ -97,10 +97,9 @@ Shader "Lighting/Cook-Torrance"
                 float3 L2 = 0.17 * (_DiffuseColour * _DiffuseColour) * E0 * cos(theta_i) * (sigmaSqr / (sigmaSqr + 0.13)) * (1.0 - cosPhi *
                     pow((2.0 * beta) / UNITY_PI, 2.0));
 
-                float3 L = saturate(L1+L2);
+                float3 L = saturate(L1 + L2);
 
                 // Cook-Torrance: https://en.wikipedia.org/wiki/Specular_highlight#Cook–Torrance_model
-
                 float NdotH = saturate(dot(n, h));
                 float a = acos(NdotH);
                 float m = clamp(sigmaSqr, 0.01, 1);
@@ -116,10 +115,11 @@ Shader "Lighting/Cook-Torrance"
 
                 float specular = ((D * G * F) / (4 * dot(n, l)) * dot(n, v)) * _LightColor0;
 
-                float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, float3(0,1,0)).rgb;
-                fixed3 ambient = 0.1 * (UNITY_LIGHTMODEL_AMBIENT + _LightColor0 + skyboxColor);
+                // Use spherical harmonics (SH) to approximate indirect ambient lighting from the environment.
+                float3 ambientSH = ShadeSH9(float4(n, 1));
+                fixed3 ambient = _DiffuseColour * ambientSH;
 
-                return float4(ambient + lerp(L, specular, _Metallic), 1.0);
+                return float4(ambient + saturate(lerp(L, specular, _Metallic)), 1.0);
             }
             ENDCG
         }

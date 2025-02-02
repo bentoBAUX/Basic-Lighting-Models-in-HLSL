@@ -66,9 +66,7 @@ Shader "Lighting/Phong"
                 float Id = _k.y * saturate(dot(n, l));
                 float Is = _k.z * pow(saturate(dot(r, v)), _SpecularExponent);
 
-                float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, float3(0,1,0)).rgb;
-
-                float3 ambient = Ia * _DiffuseColour.rgb * (UNITY_LIGHTMODEL_AMBIENT + skyboxColor * 0.2);
+                float3 ambient = Ia * _DiffuseColour.rgb * ShadeSH9(float4(n, 1)); // Use spherical harmonics (SH) to approximate indirect ambient lighting from the environment.
                 float3 diffuse = Id * _DiffuseColour.rgb * _LightColor0.rgb;
                 float3 specular = Is * _LightColor0.rgb;
 

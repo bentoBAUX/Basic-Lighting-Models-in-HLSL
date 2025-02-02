@@ -90,8 +90,9 @@ Shader "Lighting/Oren-Nayar"
 
                 float3 L = saturate(L1+L2);
 
-                float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, float3(0,1,0)).rgb;
-                fixed3 ambient = 0.1 * (UNITY_LIGHTMODEL_AMBIENT + _LightColor0 + skyboxColor);
+                // Use spherical harmonics (SH) to approximate indirect ambient lighting from the environment.
+                float3 ambientSH = ShadeSH9(float4(n, 1));
+                fixed3 ambient = _DiffuseColour * ambientSH;
 
                 return fixed4(L + ambient, 1.0);
             }

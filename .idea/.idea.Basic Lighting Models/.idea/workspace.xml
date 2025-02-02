@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="63492014-af44-41f9-948c-96f3ed9e5388" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Basic Lighting Models/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Basic Lighting Models/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Showcase.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Showcase.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Shaders/Cook-Torrance.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shaders/Cook-Torrance.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Shaders/Oren-Nayar.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shaders/Oren-Nayar.shader" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +144,7 @@
       <workItem from="1731311977460" duration="26000" />
       <workItem from="1737148621669" duration="72000" />
       <workItem from="1737224847053" duration="15000" />
-      <workItem from="1738355265120" duration="606000" />
+      <workItem from="1738355265120" duration="1213000" />
     </task>
     <servers />
   </component>
