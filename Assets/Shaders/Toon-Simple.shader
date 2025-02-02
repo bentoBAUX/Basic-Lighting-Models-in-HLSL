@@ -111,9 +111,7 @@ Shader "Lighting/Toon-Simple"
                 float Is = 0.0;  // Disable specular if checkbox is unchecked
                 #endif
 
-                half3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, float3(0,1,0)).rgb;
-
-                half3 ambient = Ia * c * (UNITY_LIGHTMODEL_AMBIENT + skyboxColor * 0.2);
+                half3 ambient = Ia * _DiffuseColour.rgb * ShadeSH9(float4(n, 1)); // Use spherical harmonics (SH) to approximate indirect ambient lighting from the environment.
                 half3 diffuse = Id * c * _LightColor0.rgb;
                 half3 specular = Is * _LightColor0.rgb;
 

@@ -36,6 +36,7 @@ Shader "Lighting/Gouraud-Phong"
             {
                 float4 pos: SV_POSITION;
                 fixed4 color: COLOR0;
+                fixed3 n : TEXCOORD0;
             };
 
             v2f vert(appdata vx)
@@ -60,14 +61,15 @@ Shader "Lighting/Gouraud-Phong"
                 float3 finalColor = ambient + diffuse + specular;       // Combine all lighting components
 
                 o.color = fixed4(finalColor, 1.0);                      // Set the final output colour
-
+                o.n = n;
                 return o;
             }
 
             fixed4 frag(v2f i) : SV_Target
             {
-                float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, float3(0,1,0)).rgb; // Sample the skybox texture using a fixed upward direction
-                return fixed4(i.color.rgb + skyboxColor * 0.2, 1.0);    // Add a portion of the skybox colour and return the final colour
+                float3 ambientSH = ShadeSH9(float4(i.n, 1));
+                fixed3 ambient = _DiffuseColour * ambientSH;
+                return fixed4(i.color.rgb + ambient, 1.0);    // Add a portion of the skybox colour and return the final colour
             }
             ENDCG
 

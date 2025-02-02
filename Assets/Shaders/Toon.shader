@@ -300,9 +300,6 @@ Shader "Lighting/Toon"
                 float Is = 0.0;  // Specular is disabled if unchecked
                 #endif
 
-                // For simplicity, we just take the colour of the skybox in the fixed upward direction for the sky's contribution.
-                half3 skyboxColour = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, float3(0,1,0)).rgb;
-
                 // Compute ambient, diffuse, specular contributions.
                 half3 ambient = Ia * _DiffuseColour.rgb * ShadeSH9(float4(n, 1)); // Use spherical harmonics (SH) to approximate indirect ambient lighting from the environment.
                 half3 diffuse = Id * c * _LightColor0.rgb * shadow;
