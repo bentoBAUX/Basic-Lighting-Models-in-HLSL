@@ -370,7 +370,7 @@ float3 L = saturate(L1+L2); // Clamped between 0 and 1 to prevent lighting value
 ...
 ```
 
-### [8. Cook-Torrance](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Shaders/Blinn-Phong.shader)
+### [8. Cook-Torrance](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Shaders/Cook-Torrance.shader)
 ![Cook Torrance](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Thumbnails/Close%20ups/Cook%20Torrance.jpg)
 #### Overview
 The Cook-Torrance model is a reflection model developed by Robert Cook and Kenneth Torrance in 1982, designed to simulate specular reflection on rough, shiny surfaces with a level of realism that surpasses simpler models like Phong or Blinn-Phong. While those earlier models treat surfaces as smooth, Cook-Torrance assumes a surface is made up of countless microscopic facets, each acting as a tiny mirror. This model calculates specular reflection based on factors like viewing angle, light direction, and a roughness parameter, similar to Oren-Nayar but tailored to specular highlights.
