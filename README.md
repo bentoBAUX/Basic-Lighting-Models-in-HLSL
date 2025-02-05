@@ -31,9 +31,8 @@ implemented lighting models, along with the mathematical concepts and code snipp
 ## Implemented Lighting Models
 
 ### [1. Lambert Lighting](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Shaders/Lambert.shader)
-
-#### Overview
 ![Lambert](https://github.com/bentoBAUX/Basic-Lighting-Models-in-HLSL/blob/master/Assets/Thumbnails/Close%20ups/Lambert.jpg)
+#### Overview
 The Lambertian lighting, named after Johann Heinrich Lambert, is the most fundamental model for simulating diffuse reflection in computer graphics. It assumes that light is scattered uniformly in all directions from each point on the surface, which makes it ideal for modelling matte materials such as unpolished surfaces like chalk or clay. The model’s simplicity lies in the fact that the intensity of reflected light is determined solely by the cosine of the angle between the surface normal and the direction of incoming light, a principle known as Lambert’s Cosine Law. 
 
 In this example, the lighting will be calculated in the vertex shader.
